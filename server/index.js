@@ -20,7 +20,7 @@ const start = async () => {
             useUnifiedTopology: true
         });
         app.listen(PORT, () => console.log(`Сервер запущен на порту ${PORT}`));
-    } catch(e) {
+    } catch (e) {
         console.log(e);
     }
 }
