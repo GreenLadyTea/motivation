@@ -45,6 +45,28 @@ class UserService {
         const token = await tokenService.removeToken(refreshToken);
         return token;
     }
+
+    async refresh(refreshToken) {
+        if(!refreshToken) {
+            throw new Error('Неавторизованный пользователь');
+        }
+        const userData = tokenService.validateRefreshToken(refreshToken);
+        const dbToken = tokenService.findToken(refreshToken);
+
+        if (!userData || !dbToken) {
+            throw new Error('Неавторизованный пользователь');
+        }
+
+        const user = await UserModel.findById(userData.id);
+        const userDto = new UserDto(user);
+        const tokens = tokenService.generateTokens({...userDto});
+        await tokenService.saveToken(userDto.id, tokens.refreshToken);
+
+        return {
+            ...tokens,
+            user: userDto
+        }
+    }
 }
 
 module.exports = new UserService();
