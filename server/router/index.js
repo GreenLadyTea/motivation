@@ -1,18 +1,23 @@
 const Router = require('express').Router;
 const userController = require('../controllers/user-controller');
+const { check } = require('express-validator');
 
 const router = new Router();
 
-const { body } = require('express-validator');
+//регистрация
+router.post('/sign-up',
+  [
+    check('login', 'Пустое поле логина').notEmpty(),
+    check('password', 'Минимальная длина пароля 6 символов').isLength({min: 6})
+  ],
+  userController.signUp);
 
-router.post('/registration',
-    body('login').notEmpty(),
-    body('password').isLength({min: 4, max: 24}),
-    userController.registration);
-router.post('/login', userController.login);
-router.post('/logout', userController.logout);
-
-router.get('/refresh', userController.refresh);
-router.get('/users', userController.getUsers);
+//вход
+router.post('/sign-in',
+  [
+    check('login', 'Пустое поле логина').notEmpty(),
+    check('password', 'Пароль не введен').notEmpty()
+  ],
+  userController.signIn);
 
 module.exports = router;
