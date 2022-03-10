@@ -1,10 +1,9 @@
 import React from 'react';
-import 'materialize-css';
 
-export default function App() {
+export default function CreateGoalPage() {
   return (
     <div className="container">
-      <h1>Главная</h1>
+      <h1>Создать цель</h1>
     </div>
   );
 }

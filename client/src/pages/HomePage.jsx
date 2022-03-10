@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default function AuthPage() {
+export default function HomePage() {
   return (
     <div className="container">
-      <h1>Профиль</h1>
+      <h1>Главная</h1>
     </div>
   );
 }

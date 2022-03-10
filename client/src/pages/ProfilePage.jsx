@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default function AuthPage() {
+export default function ProfilePage() {
   return (
     <div className="container">
-      <h1>Создать цель</h1>
+      <h1>Профиль</h1>
     </div>
   );
 }

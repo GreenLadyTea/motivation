@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default function AuthPage() {
+export default function PeoplePage() {
   return (
     <div className="container">
-      <h1>Авторизация</h1>
+      <h1>Люди</h1>
     </div>
   );
 }
