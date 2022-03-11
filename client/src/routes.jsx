@@ -3,12 +3,14 @@ import { Routes, Route } from 'react-router-dom';
 import ProfilePage from './pages/ProfilePage';
 import GoalsPage from './pages/GoalsPage';
 import PeoplePage from './pages/PeoplePage';
-import AuthPage from './pages/AuthPage';
+import LoginPage from './pages/LoginPage';
 import NotFoundPage from './pages/NotFoundPage';
 import MainLayout from './layouts/main';
 import HomePage from './pages/HomePage';
 import CreateGoalPage from './pages/CreateGoalPage';
 import SingleGoalPage from './pages/SingleGoalPage';
+import AuthLayout from './layouts/auth';
+import RegistrationPage from './pages/RegistrationPage';
 
 export default function useRoutes(isAuth) {
   if (isAuth) {
@@ -31,7 +33,10 @@ export default function useRoutes(isAuth) {
 
   return (
     <Routes>
-      <Route path="/" element={<AuthPage />} />
+      <Route path="/" element={<AuthLayout />}>
+        <Route index element={<LoginPage />} />
+        <Route path="registration" element={<RegistrationPage />} />
+      </Route>
     </Routes>
   );
 }
