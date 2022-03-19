@@ -22,7 +22,7 @@ export default function LoginPage() {
           <Form.Control
             type="text"
             placeholder="Введите логин"
-            name="login"
+            value={login}
             onChange={e => setLogin(e.target.value)}
           />
         </Form.Group>
@@ -32,7 +32,7 @@ export default function LoginPage() {
           <Form.Control
             type="password"
             placeholder="Введите пароль"
-            name="password"
+            value={password}
             onChange={e => setPassword(e.target.value)}
           />
         </Form.Group>

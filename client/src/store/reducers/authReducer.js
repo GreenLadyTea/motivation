@@ -1,8 +1,9 @@
-import { SET_AUTH_STATUS, SET_MESSAGE } from '../actions/authAction';
+import { SET_AUTH_STATUS, SET_MESSAGE, SET_TOKEN } from '../actions/authAction';
 
 export const initialState = {
   isAuth: false,
-  message: ''
+  message: '',
+  token: ''
 };
 
 export function authReducer(state = initialState, action) {
@@ -12,6 +13,9 @@ export function authReducer(state = initialState, action) {
     }
     case SET_MESSAGE: {
       return { ...state, message: action.payload };
+    }
+    case SET_TOKEN: {
+      return { ...state, token: action.payload };
     }
     default: {
       return state;

@@ -24,6 +24,9 @@ export default function MainLayout() {
                 <Nav.Link>
                   <NavLink to="/profile">Профиль</NavLink>
                 </Nav.Link>
+                <Nav.Link>
+                  <NavLink to="/goals/new">Создать</NavLink>
+                </Nav.Link>
               </Nav>
             </Navbar.Collapse>
           </Container>
@@ -33,8 +36,6 @@ export default function MainLayout() {
       <main className="container">
         <Outlet />
       </main>
-
-      <footer>2022</footer>
     </>
   );
 }
