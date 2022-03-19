@@ -14,12 +14,21 @@ async function handleErrors(response) {
 
 const api = {
   signIn: (login, password) =>
-    fetch(`${URL}/sign-in`, {
+    fetch(`${URL}/auth/sign-in`, {
       method: 'POST',
       headers: defaultHeaders,
       body: JSON.stringify({
-        login: login,
-        password: password
+        login,
+        password
+      })
+    }).then(handleErrors),
+  signUp: (login, password) =>
+    fetch(`${URL}/auth/sign-up`, {
+      method: 'POST',
+      headers: defaultHeaders,
+      body: JSON.stringify({
+        login,
+        password
       })
     }).then(handleErrors)
 };
