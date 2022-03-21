@@ -1,27 +1,19 @@
 const UserModel = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { validationResult } = require('express-validator');
 
 class AuthController {
     async signUp(req, res) {
         try {
-            const errors = validationResult(req);
-            if (!errors.isEmpty()) {
-                return res.status(400).json({
-                    message: errors.array(),
-                })
-            }
-
             const { login, password, fio } = req.body;
             const candidate = await UserModel.findOne({ login });
             if (candidate) {
                 return res.status(400).json({ message: `Пользователь с логином ${login} уже существует` });
             }
 
-            const hashedPassword = await bcrypt.hash(password, 10);
+            const hashedPassword = await bcrypt.hash(password, 6);
             await UserModel.create({login, password: hashedPassword, fio });
-            res.status(201).json({ message: 'Пользователь успешно зарегистрирован' });
+            return res.status(201).json({ message: 'Пользователь успешно зарегистрирован' });
         } catch (e) {
             return res.status(500).json({ message: 'Что-то пошло не так' });
         }
@@ -29,13 +21,6 @@ class AuthController {
 
     async signIn(req, res) {
         try {
-            const errors = validationResult(req);
-            if (!errors.isEmpty()) {
-                return res.status(400).json({
-                    message: errors.array(),
-                })
-            }
-
             const { login, password } = req.body;
 
             const user = await UserModel.findOne({login});
@@ -50,12 +35,38 @@ class AuthController {
             }
 
             const token = jwt.sign(
-              { userId: user.id},
+              { userId: user._id},
               process.env.JWT_SECRET_KEY,
               { expiresIn: '2h'}
               );
 
-            res.status(200).json({ token });
+            return res.status(200).json({
+                token,
+                user: {
+                    login: user.login,
+                    fio: user.fio
+                }
+            });
+        } catch (e) {
+            return res.status(500).json({ message: 'Что-то пошло не так' });
+        }
+    }
+    async checkAuth(req, res) {
+        try {
+            const user = await UserModel.findOne({ _id: req.user.userId });
+            console.log(user.login);
+            const token = jwt.sign(
+              { userId: user._id},
+              process.env.JWT_SECRET_KEY,
+              { expiresIn: '2h'}
+            );
+            return res.status(200).json({
+                token,
+                user: {
+                    login: user.login,
+                    fio: user.fio
+                }
+            });
         } catch (e) {
             return res.status(500).json({ message: 'Что-то пошло не так' });
         }

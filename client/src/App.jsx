@@ -1,12 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import useRoutes from './routes';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import { checkAuth } from './store/actions/authAction';
 
 export default function App() {
   const isAuth = useSelector(state => state.auth.isAuth);
   const routes = useRoutes(isAuth);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      dispatch(checkAuth());
+    }
+  }, []);
+
   return (
     <>
       <BrowserRouter>

@@ -1,8 +1,16 @@
-import { NavLink, Outlet } from 'react-router-dom';
-import { Container, Nav, Navbar } from 'react-bootstrap';
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { Container, Nav, Navbar, Button } from 'react-bootstrap';
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { logout } from '../store/actions/authAction';
 
 export default function MainLayout() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  function handleClick() {
+    dispatch(logout());
+    navigate('/');
+  }
   return (
     <>
       <header>
@@ -12,21 +20,22 @@ export default function MainLayout() {
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="me-auto">
-                <Nav.Link>
-                  <NavLink to="/">Главная</NavLink>
+                <Nav.Link as={NavLink} to="/">
+                  Главная
                 </Nav.Link>
-                <Nav.Link>
-                  <NavLink to="/goals">Цели</NavLink>
+                <Nav.Link as={NavLink} to="/goals">
+                  Цели
                 </Nav.Link>
-                <Nav.Link>
-                  <NavLink to="/people">Люди</NavLink>
+                <Nav.Link as={NavLink} to="/people">
+                  Люди
                 </Nav.Link>
-                <Nav.Link>
-                  <NavLink to="/profile">Профиль</NavLink>
+                <Nav.Link as={NavLink} to="/profile">
+                  Профиль
                 </Nav.Link>
-                <Nav.Link>
-                  <NavLink to="/goals/new">Создать</NavLink>
+                <Nav.Link as={NavLink} to="/goals/new">
+                  Создать
                 </Nav.Link>
+                <Button onClick={handleClick}>Выйти</Button>
               </Nav>
             </Navbar.Collapse>
           </Container>

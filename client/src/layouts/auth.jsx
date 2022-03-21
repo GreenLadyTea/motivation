@@ -12,11 +12,11 @@ export default function AuthLayout() {
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="me-auto">
-                <Nav.Link>
-                  <NavLink to="/">Авторизация</NavLink>
+                <Nav.Link as={NavLink} to="/">
+                  Авторизация
                 </Nav.Link>
-                <Nav.Link>
-                  <NavLink to="/registration">Регистрация</NavLink>
+                <Nav.Link as={NavLink} to="/registration">
+                  Регистрация
                 </Nav.Link>
               </Nav>
             </Navbar.Collapse>

@@ -1,23 +1,16 @@
 const Router = require('express').Router;
+const auth = require('../middlewares/auth.middleware');
 const authController = require('../controllers/auth-controller');
-const { check } = require('express-validator');
 
 const authRouter = new Router();
 
 //регистрация
-authRouter.post('/sign-up',
-  [
-    check('login', 'Пустое поле логина').notEmpty(),
-    check('password', 'Минимальная длина пароля 6 символов').isLength({min: 6})
-  ],
-  authController.signUp);
+authRouter.post('/sign-up', authController.signUp);
 
 //вход
-authRouter.post('/sign-in',
-  [
-    check('login', 'Пустое поле логина').notEmpty(),
-    check('password', 'Пароль не введен').notEmpty()
-  ],
-  authController.signIn);
+authRouter.post('/sign-in', authController.signIn);
+
+//проверка авторизации
+authRouter.get('/check-auth', auth, authController.checkAuth);
 
 module.exports = authRouter;

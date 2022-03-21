@@ -31,6 +31,13 @@ const api = {
         password,
         fio
       })
+    }).then(handleErrors),
+  checkAuth: () =>
+    fetch(`${URL}/auth/check-auth`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
     }).then(handleErrors)
 };
 
