@@ -12,6 +12,6 @@ export const signIn = (login, password) => async dispatch => {
   dispatch({ type: SET_TOKEN, payload: data.token });
 };
 
-export const signUp = (login, password) => async () => {
-  await api.signUp(login, password);
+export const signUp = (login, password, fio) => async () => {
+  await api.signUp(login, password, fio);
 };

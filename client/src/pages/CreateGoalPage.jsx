@@ -10,7 +10,7 @@ export default function CreateGoalPage() {
     <div className="container">
       <h1>Новая цель</h1>
       <Form>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Group className="mb-3">
           <Form.Label>Цель</Form.Label>
           <Form.Control
             type="text"
@@ -20,7 +20,7 @@ export default function CreateGoalPage() {
           />
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Group className="mb-3">
           <Form.Label>Срок выполнения</Form.Label>
           <Form.Control
             type="datetime-local"

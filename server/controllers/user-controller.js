@@ -21,8 +21,7 @@ class userController {
   async getUserById(req, res) {
     try {
       const user = await UserModel.findById(req.params.id);
-      const { login } = user;
-      res.json(login);
+      res.json(user);
     } catch (e) {
       return res.status(500).json({ message: 'Что-то пошло не так' });
     }

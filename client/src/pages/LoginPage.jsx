@@ -8,9 +8,9 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    dispatch(signIn(login, password));
+    await dispatch(signIn(login, password));
   }
 
   return (

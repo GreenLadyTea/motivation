@@ -22,13 +22,14 @@ const api = {
         password
       })
     }).then(handleErrors),
-  signUp: (login, password) =>
+  signUp: (login, password, fio) =>
     fetch(`${URL}/auth/sign-up`, {
       method: 'POST',
       headers: defaultHeaders,
       body: JSON.stringify({
         login,
-        password
+        password,
+        fio
       })
     }).then(handleErrors)
 };
