@@ -1,30 +1,57 @@
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, Alert } from 'react-bootstrap';
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { signUp } from '../store/actions/authAction';
+import { registration } from '../store/actions/authAction';
 import { useNavigate } from 'react-router-dom';
 
 export default function RegistrationPage() {
+  const [message, setMessage] = useState('');
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [repeatedPassword, setRepeatedPassword] = useState('');
   const [lastname, setLastname] = useState('');
   const [firstname, setFirstname] = useState('');
   const [patronymic, setPatronymic] = useState('');
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [show, setShow] = useState('normal');
 
-  function handleSubmit(e) {
+  async function handleClick(e) {
     e.preventDefault();
     const fio = lastname + ' ' + firstname + ' ' + patronymic;
-    dispatch(signUp(login, password, fio));
-    navigate('/');
+    const response = await registration(login, password, fio);
+    if (response.status === 201) {
+      setShow('success');
+      setMessage(response.message);
+      setPassword('');
+      setLogin('');
+      setFirstname('');
+      setLastname('');
+      setPatronymic('');
+      setRepeatedPassword('');
+      setTimeout(() => navigate('/'), 1000);
+    } else {
+      setMessage(response.message);
+      setShow('danger');
+    }
   }
 
   return (
     <div className="container">
       <h1>Регистрация</h1>
-      <Form onSubmit={handleSubmit}>
+      {show === 'danger' && (
+        <Alert variant={show}>
+          <Alert.Heading>Ошибка!</Alert.Heading>
+          <p>{message}</p>
+        </Alert>
+      )}
+
+      {show === 'success' && (
+        <Alert variant={show}>
+          <Alert.Heading>Успех</Alert.Heading>
+          <p>{message}</p>
+        </Alert>
+      )}
+
+      <Form>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Логин</Form.Label>
           <Form.Control
@@ -84,7 +111,7 @@ export default function RegistrationPage() {
             onChange={e => setRepeatedPassword(e.target.value)}
           />
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="submit" onClick={e => handleClick(e)}>
           Зарегистрироваться
         </Button>
       </Form>

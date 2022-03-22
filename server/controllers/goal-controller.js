@@ -7,7 +7,15 @@ class GoalController {
       const { title, description, term } = req.body;
       const goal = await GoalModel.create({ user: req.user.userId, title, description, term, status: 'new' });
       await UserModel.findByIdAndUpdate(req.user.userId, { $push: { goals: goal._id } });
-      res.status(201).json({ goal });
+      const getGoal = {
+        title: goal.title,
+        description: goal.description,
+        term: goal.term,
+        status: goal.status,
+        user: goal.user,
+        subscribers: goal.subscribers
+      }
+      res.status(201).json(getGoal);
     } catch (e) {
       return res.status(500).json({ message: 'Что-то пошло не так' });
     }

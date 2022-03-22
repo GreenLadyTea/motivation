@@ -5,7 +5,7 @@ const goalController = require('../controllers/goal-controller');
 const goalsRouter = Router();
 
 //создание цели
-goalsRouter.post('/create', auth, goalController.create);
+goalsRouter.post('/', auth, goalController.create);
 
 //получение всех целей
 goalsRouter.get('/all', auth, goalController.getAll);

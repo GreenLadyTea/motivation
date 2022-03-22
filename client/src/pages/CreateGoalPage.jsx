@@ -1,15 +1,26 @@
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import { create } from '../store/actions/goalAction';
+import { useNavigate } from 'react-router-dom';
 
 export default function CreateGoalPage() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [term, setTerm] = useState('');
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    dispatch(create(title, description, term));
+    navigate('/profile');
+  }
 
   return (
     <div className="container">
       <h1>Новая цель</h1>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
           <Form.Label>Цель</Form.Label>
           <Form.Control
