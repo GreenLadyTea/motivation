@@ -1,9 +1,9 @@
-import api, { URL } from '../../api/Api';
 import axios from 'axios';
+
+const URL = 'http://localhost:5000/api/auth';
 
 export const AUTH_ACTIONS = {
   SET_AUTH_STATUS: 'setAuthStatus',
-  SET_MESSAGE: 'setMessage',
   SET_USER: 'setUser',
   LOGOUT: 'logout'
 };
@@ -18,18 +18,13 @@ export const setUser = user => ({
   payload: user
 });
 
-export const setMessage = message => ({
-  type: AUTH_ACTIONS.SET_MESSAGE,
-  payload: message
-});
-
 export const logout = () => ({
   type: AUTH_ACTIONS.LOGOUT
 });
 
 export const signUp = async (login, password, fio) => {
   try {
-    const response = await axios.post(`${URL}/auth/sign-up`, {
+    const response = await axios.post(`${URL}/sign-up`, {
       login,
       password,
       fio
@@ -48,7 +43,7 @@ export const signUp = async (login, password, fio) => {
 
 export const logIn = (login, password) => async dispatch => {
   try {
-    const response = await axios.post(`${URL}/auth/sign-in`, {
+    const response = await axios.post(`${URL}/sign-in`, {
       login,
       password
     });
@@ -67,8 +62,14 @@ export const logIn = (login, password) => async dispatch => {
 };
 
 export const checkAuth = () => async dispatch => {
-  const data = await api.checkAuth();
-  dispatch(setUser(data.user));
-  localStorage.setItem('token', data.token);
-  dispatch(setAuthStatus(true));
+  try {
+    const response = await axios.get(`${URL}/check-auth`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+    });
+    dispatch(setUser(response.data.user));
+    localStorage.setItem('token', response.data.token);
+  } catch (e) {
+    alert(e.response.data.message);
+    localStorage.removeItem('token');
+  }
 };

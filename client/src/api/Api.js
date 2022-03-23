@@ -9,13 +9,6 @@ async function handleErrors(response) {
 }
 
 const api = {
-  checkAuth: () =>
-    fetch(`${URL}/auth/check-auth`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`
-      }
-    }).then(handleErrors),
   createNew: (title, description, term) =>
     fetch(`${URL}/goal`, {
       method: 'POST',

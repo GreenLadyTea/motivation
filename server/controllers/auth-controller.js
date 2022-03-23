@@ -54,7 +54,6 @@ class AuthController {
     async checkAuth(req, res) {
         try {
             const user = await UserModel.findOne({ _id: req.user.userId });
-            console.log(user.login);
             const token = jwt.sign(
               { userId: user._id},
               process.env.JWT_SECRET_KEY,

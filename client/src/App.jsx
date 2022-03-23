@@ -13,6 +13,9 @@ export default function App() {
   useEffect(() => {
     if (localStorage.getItem('token')) {
       dispatch(checkAuth());
+      if (!isAuth) {
+        localStorage.removeItem('token');
+      }
     }
   }, []);
 

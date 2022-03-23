@@ -27,8 +27,6 @@ export default function AuthLayout() {
       <main className="container">
         <Outlet />
       </main>
-
-      <footer>2022</footer>
     </>
   );
 }

@@ -1,10 +1,11 @@
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { Container, Nav, Navbar, Button } from 'react-bootstrap';
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../store/actions/authAction';
 
 export default function MainLayout() {
+  const username = useSelector(state => state.auth.user.login);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   function handleClick() {
@@ -30,12 +31,11 @@ export default function MainLayout() {
                   Люди
                 </Nav.Link>
                 <Nav.Link as={NavLink} to="/profile">
-                  Профиль
+                  {username}
                 </Nav.Link>
-                <Nav.Link as={NavLink} to="/goals/new">
-                  Создать
-                </Nav.Link>
-                <Button onClick={handleClick}>Выйти</Button>
+                <Button variant="outline-primary" onClick={handleClick}>
+                  Выйти
+                </Button>
               </Nav>
             </Navbar.Collapse>
           </Container>
