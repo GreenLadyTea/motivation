@@ -27,7 +27,7 @@ export const logout = () => ({
   type: AUTH_ACTIONS.LOGOUT
 });
 
-export const registration = async (login, password, fio) => {
+export const signUp = async (login, password, fio) => {
   try {
     const response = await axios.post(`${URL}/auth/sign-up`, {
       login,
@@ -46,18 +46,29 @@ export const registration = async (login, password, fio) => {
   }
 };
 
-export const signIn = (login, password) => async dispatch => {
-  const data = await api.signIn(login, password);
-  dispatch(setAuthStatus(true));
-  dispatch(setUser(data.user));
-  console.log(data.user);
-  localStorage.setItem('token', data.token);
+export const logIn = (login, password) => async dispatch => {
+  try {
+    const response = await axios.post(`${URL}/auth/sign-in`, {
+      login,
+      password
+    });
+    dispatch(setAuthStatus(true));
+    dispatch(setUser(response.data.user));
+    localStorage.setItem('token', response.data.token);
+    return {
+      status: response.status
+    };
+  } catch (e) {
+    return {
+      status: e.response.status,
+      message: e.response.data.message
+    };
+  }
 };
 
 export const checkAuth = () => async dispatch => {
   const data = await api.checkAuth();
   dispatch(setUser(data.user));
   localStorage.setItem('token', data.token);
-  console.log(data.token);
   dispatch(setAuthStatus(true));
 };

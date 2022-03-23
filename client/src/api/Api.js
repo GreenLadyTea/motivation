@@ -9,29 +9,6 @@ async function handleErrors(response) {
 }
 
 const api = {
-  signIn: (login, password) =>
-    fetch(`${URL}/auth/sign-in`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        login,
-        password
-      })
-    }).then(handleErrors),
-  signUp: (login, password, fio) =>
-    fetch(`${URL}/auth/sign-up`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        login,
-        password,
-        fio
-      })
-    }).then(handleErrors),
   checkAuth: () =>
     fetch(`${URL}/auth/check-auth`, {
       method: 'GET',

@@ -25,13 +25,13 @@ class AuthController {
 
             const user = await UserModel.findOne({login});
             if(!user) {
-                return res.status(404).json({ message: 'Пользователь не найден' });
+                return res.status(404).json({ message: `Пользователь с логином ${login} не зарегистрирован` });
             }
 
             const isPasswordValid = await bcrypt.compare(password, user.password);
 
             if (!isPasswordValid) {
-                return res.status(400).json({ message: 'Некорректный пароль' });
+                return res.status(400).json({ message: 'Неправильный пароль' });
             }
 
             const token = jwt.sign(

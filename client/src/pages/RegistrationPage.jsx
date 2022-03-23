@@ -1,6 +1,6 @@
 import { Button, Form, Alert } from 'react-bootstrap';
 import React, { useState } from 'react';
-import { registration } from '../store/actions/authAction';
+import { signUp } from '../store/actions/authAction';
 import { useNavigate } from 'react-router-dom';
 
 export default function RegistrationPage() {
@@ -17,7 +17,12 @@ export default function RegistrationPage() {
   async function handleClick(e) {
     e.preventDefault();
     const fio = lastname + ' ' + firstname + ' ' + patronymic;
-    const response = await registration(login, password, fio);
+    if (password !== repeatedPassword) {
+      setMessage('Пароли не совпадают');
+      setShow('danger');
+      return;
+    }
+    const response = await signUp(login, password, fio);
     if (response.status === 201) {
       setShow('success');
       setMessage(response.message);

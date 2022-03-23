@@ -1,21 +1,38 @@
 import React, { useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Alert } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { signIn } from '../store/actions/authAction';
+import { logIn } from '../store/actions/authAction';
 
 export default function LoginPage() {
+  const [show, setShow] = useState('');
+  const [message, setMessage] = useState('');
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
 
   async function handleSubmit(e) {
     e.preventDefault();
-    await dispatch(signIn(login, password));
+    const response = await dispatch(logIn(login, password));
+    if (response.status === 200) {
+      setPassword('');
+      setLogin('');
+    } else {
+      setMessage(response.message);
+      setShow('danger');
+    }
   }
 
   return (
     <div className="container">
       <h1>Авторизация</h1>
+
+      {show === 'danger' && (
+        <Alert variant={show}>
+          <Alert.Heading>Ошибка!</Alert.Heading>
+          <p>{message}</p>
+        </Alert>
+      )}
+
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Логин</Form.Label>
@@ -36,6 +53,7 @@ export default function LoginPage() {
             onChange={e => setPassword(e.target.value)}
           />
         </Form.Group>
+
         <Button variant="primary" type="submit">
           Войти
         </Button>
