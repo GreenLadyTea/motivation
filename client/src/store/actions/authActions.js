@@ -69,7 +69,6 @@ export const checkAuth = () => async dispatch => {
     dispatch(setUser(response.data.user));
     localStorage.setItem('token', response.data.token);
   } catch (e) {
-    alert(e.response.data.message);
     localStorage.removeItem('token');
   }
 };

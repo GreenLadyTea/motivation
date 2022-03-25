@@ -4,8 +4,7 @@ const URL = 'http://localhost:5000/api/goal';
 
 export const AUTH_ACTIONS = {
   SET_GOALS: 'setGoals',
-  FILTER: 'filter',
-  SEARCH: 'search'
+  FILTER: 'filter'
 };
 
 export const setGoals = goals => ({

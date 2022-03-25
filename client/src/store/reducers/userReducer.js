@@ -6,10 +6,10 @@ export const initialState = {
   searchbar: ''
 };
 
-export function userGoalsReducer(state = initialState, action) {
+export function userReducer(state = initialState, action) {
   switch (action.type) {
     case AUTH_ACTIONS.SET_GOALS: {
-      return { ...state, goals: [...action.payload] };
+      return { ...state, goals: action.payload };
     }
     case AUTH_ACTIONS.FILTER: {
       return { ...state, filter: action.payload };
