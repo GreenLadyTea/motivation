@@ -1,21 +1,12 @@
 const GoalModel = require('../models/Goal');
-const UserModel = require('../models/User');
 
 class GoalController {
   async create(req, res) {
     try {
       const { title, description, term } = req.body;
+      console.log(title, description, term);
       const goal = await GoalModel.create({ user: req.user.userId, title, description, term, status: 'new' });
-      await UserModel.findByIdAndUpdate(req.user.userId, { $push: { goals: goal._id } });
-      const getGoal = {
-        title: goal.title,
-        description: goal.description,
-        term: goal.term,
-        status: goal.status,
-        user: goal.user,
-        subscribers: goal.subscribers
-      }
-      res.status(201).json(getGoal);
+      return res.status(201).json({ goal });
     } catch (e) {
       return res.status(500).json({ message: 'Что-то пошло не так' });
     }

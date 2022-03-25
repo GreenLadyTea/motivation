@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { Alert, Button, Form } from 'react-bootstrap';
 import { create } from '../store/actions/goalAction';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,18 +7,45 @@ export default function CreateGoalPage() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [term, setTerm] = useState('');
-  const dispatch = useDispatch();
+  const [show, setShow] = useState('');
+  const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    dispatch(create(title, description, term));
-    navigate('/profile');
+    const response = await create(title, description, term);
+    console.log(response);
+    if (response.status === 201) {
+      setTitle('');
+      setDescription('');
+      setTerm('');
+      setMessage('Вперёд к своей цели!');
+      setShow('success');
+      setTimeout(() => navigate('/profile'), 1000);
+    } else {
+      setMessage(response.message);
+      setShow('danger');
+    }
   }
 
   return (
     <div className="container">
       <h1>Новая цель</h1>
+
+      {show === 'danger' && (
+        <Alert variant={show}>
+          <Alert.Heading>Ошибка!</Alert.Heading>
+          <p>{message}</p>
+        </Alert>
+      )}
+
+      {show === 'success' && (
+        <Alert variant={show}>
+          <Alert.Heading>Успех</Alert.Heading>
+          <p>{message}</p>
+        </Alert>
+      )}
+
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
           <Form.Label>Цель</Form.Label>

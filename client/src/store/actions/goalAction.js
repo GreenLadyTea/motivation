@@ -1,17 +1,20 @@
-import api from '../../api/Api';
+import axios from 'axios';
 
-export const GOAL_ACTIONS = {
-  CREATE_NEW_GOAL: 'createNewGoal'
-};
+const URL = 'http://localhost:5000/api/goal';
 
-export const createNewGoal = goal => ({
-  type: GOAL_ACTIONS.CREATE_NEW_GOAL,
-  payload: goal
-});
-
-export const create = (title, description, term) => async dispatch => {
-  const response = await api.createNew(title, description, term);
-  let goal = await response.json();
-  console.log(goal);
-  dispatch(createNewGoal({ goal }));
+export const create = async (title, description, term) => {
+  try {
+    return await axios.post(
+      `${URL}`,
+      { title, description, term },
+      {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+      }
+    );
+  } catch (e) {
+    return {
+      status: e.response.status,
+      message: e.response.data.message
+    };
+  }
 };
