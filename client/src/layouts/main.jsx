@@ -2,7 +2,7 @@ import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { Container, Nav, Navbar, Button } from 'react-bootstrap';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '../store/actions/authAction';
+import { logout } from '../store/actions/authActions';
 
 export default function MainLayout() {
   const username = useSelector(state => state.auth.user.login);

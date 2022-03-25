@@ -1,6 +1,6 @@
 import { Button, Form, Alert } from 'react-bootstrap';
 import React, { useState } from 'react';
-import { signUp } from '../store/actions/authAction';
+import { signUp } from '../store/actions/authActions';
 import { useNavigate } from 'react-router-dom';
 
 export default function RegistrationPage() {

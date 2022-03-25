@@ -1,8 +1,10 @@
 export const initialState = {
-  goals: []
+  goals: [],
+  filter: '',
+  searchbar: ''
 };
 
-export function goalReducer(state = initialState, action) {
+export function goalsReducer(state = initialState, action) {
   switch (action.type) {
     default: {
       return state;

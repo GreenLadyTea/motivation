@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { logIn } from '../store/actions/authAction';
+import { logIn } from '../store/actions/authActions';
 
 export default function LoginPage() {
   const [show, setShow] = useState('');

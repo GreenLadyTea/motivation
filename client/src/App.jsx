@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import useRoutes from './routes';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import { checkAuth } from './store/actions/authAction';
+import { checkAuth } from './store/actions/authActions';
 
 export default function App() {
   const isAuth = useSelector(state => state.auth.isAuth);
