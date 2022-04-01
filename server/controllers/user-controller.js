@@ -3,7 +3,7 @@ const UserModel = require('../models/User');
 class userController {
   async getAll(req, res) {
     try {
-      const users = await UserModel.find();
+      const users = await UserModel.find().select('-__v -goals -messages -password');
       res.json(users);
     } catch(e) {
       return res.status(500).json({ message: 'Что-то пошло не так' });
