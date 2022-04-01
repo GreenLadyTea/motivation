@@ -10,6 +10,18 @@ class GoalController {
       return res.status(500).json({ message: 'Что-то пошло не так' });
     }
   }
+
+  async doTheTask(req, res) {
+    try {
+      const goal = await GoalModel.findOneAndUpdate({ _id: req.params.id, user: req.user.userId }, { status: "done"}, {
+        new: true
+      });
+      return res.status(200).json({ goal });
+    } catch(e) {
+      return res.status(500).json({ message: 'Что-то пошло не так' });
+    }
+  }
+
   async getAll(req, res) {
     try {
       const goals = await GoalModel.find().select('-__v -subscribers');
@@ -18,6 +30,7 @@ class GoalController {
       return res.status(500).json({ message: 'Что-то пошло не так' });
     }
   }
+
   async getAllByUser(req, res) {
     try {
       const goals = await GoalModel.find({ user: req.user.userId }).select('-__v -subscribers');
@@ -26,6 +39,7 @@ class GoalController {
       return res.status(500).json({ message: 'Что-то пошло не так' });
     }
   }
+
   async getOne(req, res) {
     try {
       const goal = await GoalModel.findById(req.params.id);

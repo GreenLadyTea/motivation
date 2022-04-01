@@ -7,6 +7,9 @@ const goalsRouter = Router();
 //создание цели
 goalsRouter.post('/', auth, goalController.create);
 
+//выполнение цели?
+goalsRouter.put('/:id', auth, goalController.doTheTask);
+
 //получение всех целей
 goalsRouter.get('/all', auth, goalController.getAll);
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
-import GoalsList from '../components/GoalsList';
+import UserGoalsList from '../components/UserGoalsList';
 
 export default function ProfilePage() {
   const username = useSelector(state => state.auth.user.login);
@@ -13,7 +13,7 @@ export default function ProfilePage() {
       <h1>{username}</h1>
       <div>{fio}</div>
       <div>
-        <GoalsList />
+        <UserGoalsList />
       </div>
       <Button variant="outline-success" size="sm" as={NavLink} to="/goals/new">
         Поставить новую цель

@@ -6,19 +6,20 @@ import { useNavigate } from 'react-router-dom';
 export default function CreateGoalPage() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [term, setTerm] = useState('');
+  const [termin, setTermin] = useState('');
   const [show, setShow] = useState('');
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
+    const term = termin.replace(/T/, ' ');
     const response = await create(title, description, term);
     console.log(response);
     if (response.status === 201) {
       setTitle('');
       setDescription('');
-      setTerm('');
+      setTermin('');
       setMessage('Вперёд к своей цели!');
       setShow('success');
       setTimeout(() => navigate('/profile'), 1000);
@@ -61,8 +62,8 @@ export default function CreateGoalPage() {
           <Form.Label>Срок выполнения</Form.Label>
           <Form.Control
             type="datetime-local"
-            value={term}
-            onChange={e => setTerm(e.target.value)}
+            value={termin}
+            onChange={e => setTermin(e.target.value)}
           />
         </Form.Group>
 
