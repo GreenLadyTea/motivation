@@ -18,8 +18,8 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use('/api/auth', authRouter);
-app.use('/api/goal', goalsRouter);
-app.use('/api/user', usersRouter);
+app.use('/api/goals', goalsRouter);
+app.use('/api/users', usersRouter);
 
 async function start() {
     try {

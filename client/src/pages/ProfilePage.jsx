@@ -10,14 +10,17 @@ export default function ProfilePage() {
 
   return (
     <div className="container">
-      <h1>{username}</h1>
-      <div>{fio}</div>
+      <div className="col-md-10 mx-auto">
+        <h1>{username}</h1>
+        <div>{fio}</div>
+        <Button variant="outline-success" size="sm" as={NavLink} to="/goals/new">
+          Поставить новую цель
+        </Button>
+        <h2>Мои цели</h2>
+      </div>
       <div>
         <UserGoalsList />
       </div>
-      <Button variant="outline-success" size="sm" as={NavLink} to="/goals/new">
-        Поставить новую цель
-      </Button>
     </div>
   );
 }

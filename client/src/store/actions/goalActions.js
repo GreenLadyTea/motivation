@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const URL = 'http://localhost:5000/api/goal';
+const URL = 'http://localhost:5000/api/goals';
 
 export const GOAL_ACTIONS = {
   SET_GOALS: 'setGoals',

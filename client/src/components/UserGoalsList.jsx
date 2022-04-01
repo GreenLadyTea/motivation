@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getGoals } from '../store/actions/userActions';
+import { getGoals } from '../store/actions/userGoalsActions';
 import UserGoalCard from './UserGoalCard';
+import { Stack } from 'react-bootstrap';
 
 export default function UserGoalsList() {
-  const goals = useSelector(state => state.user.goals);
+  const goals = useSelector(state => state.userGoals.goals);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -15,18 +16,21 @@ export default function UserGoalsList() {
     if (!goals.length) {
       return 'Никаких целей ещё нет';
     }
-    console.log(goals);
     return (
       <>
-        {goals.map(goal => (
-          <UserGoalCard
-            key={goal._id}
-            title={goal.title}
-            description={goal.description}
-            createdAt={goal.createdAt}
-            term={goal.term}
-          />
-        ))}
+        <Stack gap={3} className="col-md-10 mx-auto">
+          {goals.map(goal => (
+            <UserGoalCard
+              key={goal._id}
+              id={goal._id}
+              title={goal.title}
+              description={goal.description}
+              createdAt={goal.createdAt}
+              term={goal.term}
+              status={goal.status}
+            />
+          ))}
+        </Stack>
       </>
     );
   }
