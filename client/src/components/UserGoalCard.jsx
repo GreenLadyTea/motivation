@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Button } from 'react-bootstrap';
+import { Card, Button, Stack } from 'react-bootstrap';
 import { doGoal } from '../store/actions/userGoalsActions';
 import { useDispatch } from 'react-redux';
 
@@ -10,16 +10,24 @@ export default function UserGoalCard({ id, title, term, description, createdAt, 
     console.log(response.status);
   }
 
+  const fixedTerm = createdAt.slice(0, 10);
+
   return (
     <>
       <Card>
         <Card.Body>
           <Card.Title>{title}</Card.Title>
-          <Card.Subtitle className="mb-2 text-muted">
-            {createdAt} до {term}
-            {status}
+          <Card.Subtitle className="mb-2">
+            <Stack gap={2} direction="horizontal">
+              <div className="text-muted">{fixedTerm}</div>
+              <div className="text-danger ms-auto">до {term}</div>
+            </Stack>
           </Card.Subtitle>
-          <Card.Text>{description}</Card.Text>
+          <Card.Text>
+            {description}
+            <br />
+            {status}
+          </Card.Text>
           <Button variant="primary" onClick={handleClick}>
             Выполнить
           </Button>
