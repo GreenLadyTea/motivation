@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect } from 'react';
-import { getAllGoals } from '../store/actions/goalActions';
+import { getAllGoals } from '../store/actions/goalsActions';
 import { Stack } from 'react-bootstrap';
 import GoalCard from './GoalCard';
 
 export default function AllGoalsList() {
-  const goals = useSelector(state => state.goal.goals);
+  const goals = useSelector(state => state.goals.goals);
   const dispatch = useDispatch();
 
   useEffect(() => {

@@ -2,13 +2,13 @@ import { applyMiddleware, combineReducers, createStore } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import { authReducer } from './reducers/authReducer';
 import { userGoalsReducer } from './reducers/userGoalsReducer';
-import { goalReducer } from './reducers/goalReducer';
+import { goalsReducer } from './reducers/goalsReducer';
 import { composeWithDevTools } from '@redux-devtools/extension';
 import { usersReducer } from './reducers/usersReducer';
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  goal: goalReducer,
+  goals: goalsReducer,
   userGoals: userGoalsReducer,
   users: usersReducer
 });

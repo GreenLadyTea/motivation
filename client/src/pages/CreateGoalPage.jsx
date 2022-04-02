@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Alert, Button, Form } from 'react-bootstrap';
-import { create } from '../store/actions/goalActions';
+import { create } from '../store/actions/goalsActions';
 import { useNavigate } from 'react-router-dom';
 
 export default function CreateGoalPage() {

@@ -2,24 +2,24 @@ import axios from 'axios';
 
 const URL = 'http://localhost:5000/api/goals';
 
-export const GOAL_ACTIONS = {
+export const GOALS_ACTIONS = {
   SET_GOALS: 'setGoals',
   FILTER: 'filter',
   SEARCH: 'search'
 };
 
 export const setGoals = goals => ({
-  type: GOAL_ACTIONS.SET_GOALS,
+  type: GOALS_ACTIONS.SET_GOALS,
   payload: goals
 });
 
 export const filter = filter => ({
-  type: GOAL_ACTIONS.FILTER,
+  type: GOALS_ACTIONS.FILTER,
   payload: filter
 });
 
 export const search = searchbar => ({
-  type: GOAL_ACTIONS.SEARCH,
+  type: GOALS_ACTIONS.SEARCH,
   payload: searchbar
 });
 

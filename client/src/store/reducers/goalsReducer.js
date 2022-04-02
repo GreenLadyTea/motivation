@@ -1,4 +1,4 @@
-import { GOAL_ACTIONS } from '../actions/goalActions';
+import { GOALS_ACTIONS } from '../actions/goalsActions';
 
 export const initialState = {
   goals: [],
@@ -6,9 +6,9 @@ export const initialState = {
   searchbar: ''
 };
 
-export function goalReducer(state = initialState, action) {
+export function goalsReducer(state = initialState, action) {
   switch (action.type) {
-    case GOAL_ACTIONS.SET_GOALS: {
+    case GOALS_ACTIONS.SET_GOALS: {
       return { ...state, goals: action.payload };
     }
     default: {
