@@ -10,6 +10,9 @@ goalsRouter.post('/', auth, goalController.create);
 //выполнение цели?
 goalsRouter.put('/:id', auth, goalController.doTheTask);
 
+//подписка на цель
+goalsRouter.put('/subscribe/:id', auth, goalController.subscribe);
+
 //получение всех целей
 goalsRouter.get('/all', auth, goalController.getAll);
 

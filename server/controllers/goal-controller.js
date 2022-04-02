@@ -1,4 +1,5 @@
 const GoalModel = require('../models/Goal');
+const UserModel = require('../models/User');
 
 class GoalController {
   async create(req, res) {
@@ -7,7 +8,7 @@ class GoalController {
       const goal = await GoalModel.create({ user: req.user.userId, title, description, term, status: 'new' });
       return res.status(201).json({ goal });
     } catch (e) {
-      return res.status(500).json({ message: 'Что-то пошло не так' });
+      return res.status(500).json({ message: 'Поля должны быть заполнены' });
     }
   }
 
@@ -44,6 +45,19 @@ class GoalController {
     try {
       const goal = await GoalModel.findById(req.params.id);
       return res.status(200).json(goal);
+    } catch (e) {
+      return res.status(500).json({ message: 'Что-то пошло не так' });
+    }
+  }
+
+  async subscribe(req, res) {
+    try {
+      const goal = await GoalModel.findOneAndUpdate({ _id: req.params.id}, { $push: { subscribers: req.user.userId } });
+      const user = await UserModel.findByIdAndUpdate(req.user.userId, { $push: { trackedGoals: req.params.id } });
+      return res.status(200).json({
+        goal: goal,
+        user: user
+      });
     } catch (e) {
       return res.status(500).json({ message: 'Что-то пошло не так' });
     }
