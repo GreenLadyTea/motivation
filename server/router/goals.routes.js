@@ -11,7 +11,7 @@ goalsRouter.post('/', auth, goalController.create);
 goalsRouter.put('/:id', auth, goalController.doTheTask);
 
 //подписка на цель
-goalsRouter.put('/subscribe/:id', auth, goalController.subscribe);
+goalsRouter.put('/track/:id', auth, goalController.trackGoal);
 
 //получение всех целей
 goalsRouter.get('/all', auth, goalController.getAll);

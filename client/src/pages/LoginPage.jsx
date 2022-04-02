@@ -33,7 +33,7 @@ export default function LoginPage() {
         </Alert>
       )}
 
-      <Form onSubmit={handleSubmit}>
+      <Form className="col-md-6" onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Логин</Form.Label>
           <Form.Control

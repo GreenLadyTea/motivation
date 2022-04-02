@@ -1,8 +1,14 @@
 import React from 'react';
 import { Card, Button, Stack } from 'react-bootstrap';
+import { trackGoal } from '../store/actions/goalsActions';
 
-export default function GoalCard({ title, term, description, createdAt, status }) {
+export default function GoalCard({ id, title, term, description, createdAt, status }) {
   const fixedTerm = createdAt.slice(0, 10);
+
+  async function handleClick() {
+    const response = await trackGoal(id);
+    console.log(response.status);
+  }
 
   return (
     <>
@@ -20,7 +26,9 @@ export default function GoalCard({ title, term, description, createdAt, status }
             <br />
             {status}
           </Card.Text>
-          <Button variant="primary">Мотивировать</Button>
+          <Button variant="primary" onClick={handleClick}>
+            Мотивировать
+          </Button>
         </Card.Body>
       </Card>
     </>

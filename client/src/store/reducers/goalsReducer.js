@@ -11,6 +11,9 @@ export function goalsReducer(state = initialState, action) {
     case GOALS_ACTIONS.SET_GOALS: {
       return { ...state, goals: action.payload };
     }
+    case GOALS_ACTIONS.SEARCH: {
+      return { ...state, searchBar: action.payload };
+    }
     default: {
       return state;
     }

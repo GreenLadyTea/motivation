@@ -41,7 +41,6 @@ export default function RegistrationPage() {
 
   return (
     <div className="container">
-      <h1>Регистрация</h1>
       {show === 'danger' && (
         <Alert variant={show}>
           <Alert.Heading>Ошибка!</Alert.Heading>
@@ -56,7 +55,8 @@ export default function RegistrationPage() {
         </Alert>
       )}
 
-      <Form>
+      <Form className="col-md-6">
+        <h1>Регистрация</h1>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Логин</Form.Label>
           <Form.Control

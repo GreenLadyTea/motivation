@@ -56,3 +56,23 @@ export const getAllGoals = () => async dispatch => {
     };
   }
 };
+
+export const trackGoal = async id => {
+  try {
+    const response = await axios.put(
+      `${URL}/track/${id}`,
+      {},
+      {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+      }
+    );
+    return {
+      status: response.status
+    };
+  } catch (e) {
+    return {
+      status: e.response.status,
+      message: e.response.data.message
+    };
+  }
+};

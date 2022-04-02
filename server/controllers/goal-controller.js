@@ -50,7 +50,7 @@ class GoalController {
     }
   }
 
-  async subscribe(req, res) {
+  async trackGoal(req, res) {
     try {
       const goal = await GoalModel.findOneAndUpdate({ _id: req.params.id}, { $push: { subscribers: req.user.userId } });
       const user = await UserModel.findByIdAndUpdate(req.user.userId, { $push: { trackedGoals: req.params.id } });

@@ -22,6 +22,7 @@ export default function AllGoalsList() {
           {goals.map(goal => (
             <GoalCard
               key={goal._id}
+              id={goal._id}
               title={goal.title}
               description={goal.description}
               createdAt={goal.createdAt}
