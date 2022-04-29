@@ -16,7 +16,7 @@ export default function UsersList() {
     <>
       <Stack gap={3} className="col-md-6">
         {users.map(user => (
-          <UserCard key={user._id} login={user.login} fio={user.fio} />
+          <UserCard key={user._id} username={user.username} />
         ))}
       </Stack>
     </>

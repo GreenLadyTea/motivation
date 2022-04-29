@@ -32,7 +32,7 @@ class GoalController {
         goals_array[i] = {
           id: goals[i]._id,
           userId: goals[i].user,
-          username: user.login,
+          username: user.username,
           title: goals[i].title,
           description: goals[i].description,
           term: goals[i].term,

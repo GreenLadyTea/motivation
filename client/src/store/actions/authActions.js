@@ -22,12 +22,12 @@ export const logout = () => ({
   type: AUTH_ACTIONS.LOGOUT
 });
 
-export const signUp = async (login, password, fio) => {
+export const signUp = async (login, password, username) => {
   try {
     const response = await axios.post(`${URL}/sign-up`, {
       login,
       password,
-      fio
+      username
     });
     return {
       status: response.status,

@@ -5,14 +5,14 @@ const jwt = require('jsonwebtoken');
 class AuthController {
     async signUp(req, res) {
         try {
-            const { login, password, fio } = req.body;
+            const { login, password, username } = req.body;
             const candidate = await UserModel.findOne({ login });
             if (candidate) {
                 return res.status(400).json({ message: `Пользователь с логином ${login} уже существует` });
             }
 
             const hashedPassword = await bcrypt.hash(password, 6);
-            await UserModel.create({login, password: hashedPassword, fio });
+            await UserModel.create({login, password: hashedPassword, username });
             return res.status(201).json({ message: 'Пользователь успешно зарегистрирован' });
         } catch (e) {
             return res.status(500).json({ message: 'Что-то пошло не так' });
@@ -45,7 +45,7 @@ class AuthController {
                 user: {
                     id: user._id,
                     login: user.login,
-                    fio: user.fio
+                    username: user.username
                 }
             });
         } catch (e) {
@@ -64,7 +64,7 @@ class AuthController {
                 token,
                 user: {
                     login: user.login,
-                    fio: user.fio
+                    username: user.username
                 }
             });
         } catch (e) {

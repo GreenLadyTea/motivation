@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../store/actions/authActions';
 
 export default function MainLayout() {
-  const username = useSelector(state => state.auth.user.login);
+  const username = useSelector(state => state.auth.user.username);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   function handleClick() {

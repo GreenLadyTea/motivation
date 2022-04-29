@@ -7,8 +7,7 @@ import avatarLogo from '../images/default_avatar.jpg';
 import './profile.css';
 
 export default function ProfilePage() {
-  const username = useSelector(state => state.auth.user.login);
-  const fio = useSelector(state => state.auth.user.fio);
+  const username = useSelector(state => state.auth.user.username);
   const description = 'Описание';
   const avatar = avatarLogo;
 
@@ -18,7 +17,6 @@ export default function ProfilePage() {
         <img alt="avatar" src={avatar} className="avatar" />
         <div className="user-info">
           <h1>{username}</h1>
-          <div>{fio} </div>
           <div>{description}</div>
           <Button variant="outline-success" size="sm">
             Редактировать
