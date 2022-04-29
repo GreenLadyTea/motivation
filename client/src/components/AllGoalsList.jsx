@@ -6,10 +6,11 @@ import GoalCard from './GoalCard';
 
 export default function AllGoalsList() {
   const goals = useSelector(state => state.goals.goals);
+  const id = useSelector(state => state.auth.user.id);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAllGoals());
+    dispatch(getAllGoals(id));
   }, []);
 
   function renderList() {
@@ -24,10 +25,10 @@ export default function AllGoalsList() {
               key={goal._id}
               id={goal._id}
               title={goal.title}
+              username={goal.username}
               description={goal.description}
               createdAt={goal.createdAt}
               term={goal.term}
-              status={goal.status}
             />
           ))}
         </Stack>
@@ -36,7 +37,7 @@ export default function AllGoalsList() {
   }
   return (
     <>
-      <div data-testid="list">{renderList()}</div>
+      <div>{renderList()}</div>
     </>
   );
 }

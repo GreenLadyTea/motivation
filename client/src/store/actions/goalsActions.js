@@ -40,12 +40,16 @@ export const create = async (title, description, term) => {
   }
 };
 
-export const getAllGoals = () => async dispatch => {
+export const getAllGoals = id => async dispatch => {
   try {
     const response = await axios.get(`${URL}/all`, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     });
-    dispatch(setGoals(response.data));
+    const allGoals = response.data;
+    console.log(allGoals[0].userId);
+    console.log(id);
+    const reducedGoals = allGoals.filter(goal => goal.userId !== id);
+    dispatch(setGoals(reducedGoals));
     return {
       status: response.status
     };

@@ -43,6 +43,7 @@ class AuthController {
             return res.status(200).json({
                 token,
                 user: {
+                    id: user._id,
                     login: user.login,
                     fio: user.fio
                 }

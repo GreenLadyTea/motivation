@@ -25,8 +25,21 @@ class GoalController {
 
   async getAll(req, res) {
     try {
-      const goals = await GoalModel.find().select('-__v -subscribers');
-      return res.status(200).json(goals);
+      const goals = await GoalModel.find().select('-__v -subscribers -updatedAt');
+      const goals_array = [];
+      for (let i = 0; i < goals.length; i++) {
+        const user = await UserModel.findById(goals[i].user);
+        goals_array[i] = {
+          id: goals[i]._id,
+          userId: goals[i].user,
+          username: user.login,
+          title: goals[i].title,
+          description: goals[i].description,
+          term: goals[i].term,
+          createdAt: goals[i].createdAt
+        }
+      }
+      return res.status(200).json(goals_array);
     } catch(e) {
       return res.status(500).json({ message: 'Что-то пошло не так' });
     }

@@ -5,6 +5,7 @@ const UserSchema = new Schema({
     password: {type: String, required: true},
     fio: {type: String, required: true},
     description: {type: String, required: false},
+    avatar: {type: String, required: false},
     goals: [{type: Schema.Types.ObjectId, ref: 'Goal'}],
     trackedGoals: [{ type: Schema.Types.ObjectId, ref: 'Goal'}],
     messages: [{type: Schema.Types.ObjectId, ref: 'Message'}]

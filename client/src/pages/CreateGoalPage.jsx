@@ -47,7 +47,7 @@ export default function CreateGoalPage() {
         </Alert>
       )}
 
-      <Form onSubmit={handleSubmit}>
+      <Form className="col-md-6" onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
           <Form.Label>Цель</Form.Label>
           <Form.Control

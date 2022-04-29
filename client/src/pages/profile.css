@@ -1,0 +1,11 @@
+.profile-info {
+    display: flex;
+}
+
+.user-info {
+    margin-left: 2vmin;
+}
+
+.avatar {
+    border-radius: 10vmin;
+}
