@@ -7,10 +7,13 @@ const usersRouter = Router();
 //получение всех пользователей
 usersRouter.get('/all', auth, userController.getAll);
 
-//получение пользователя
+//получение текущего пользователя
 usersRouter.get('/', auth, userController.getUser);
 
-//получение пользователя по id
-usersRouter.get('/:id', auth, userController.getUserById);
+//обновление описания пользователя
+usersRouter.post('/description', auth, userController.updateUserDescription);
+
+//получение пользователя по username
+usersRouter.get('/:username', auth, userController.getUserByUsername);
 
 module.exports = usersRouter;

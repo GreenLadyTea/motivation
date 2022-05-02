@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, Button, Stack } from 'react-bootstrap';
-import { doGoal } from '../store/actions/userGoalsActions';
+import { doGoal } from '../store/actions/profileActions';
 import { useDispatch } from 'react-redux';
 
 export default function UserGoalCard({ id, title, term, description, createdAt, status }) {

@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getGoals } from '../store/actions/userGoalsActions';
+import { getGoals } from '../store/actions/profileActions';
 import UserGoalCard from './UserGoalCard';
 import { Stack } from 'react-bootstrap';
 
 export default function UserGoalsList() {
-  const goals = useSelector(state => state.userGoals.goals);
+  const goals = useSelector(state => state.profile.goals);
   const dispatch = useDispatch();
 
   useEffect(() => {

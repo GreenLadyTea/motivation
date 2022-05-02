@@ -10,9 +10,12 @@ class AuthController {
             if (candidate) {
                 return res.status(400).json({ message: `Пользователь с логином ${login} уже существует` });
             }
-
+            const pretender = await UserModel.findOne({ username });
+            if (pretender) {
+                return res.status(400).json({ message: `Пользователь с именем ${username} уже существует` });
+            }
             const hashedPassword = await bcrypt.hash(password, 6);
-            await UserModel.create({login, password: hashedPassword, username });
+            await UserModel.create({login, password: hashedPassword, username, description: "", avatar: "" });
             return res.status(201).json({ message: 'Пользователь успешно зарегистрирован' });
         } catch (e) {
             return res.status(500).json({ message: 'Что-то пошло не так' });

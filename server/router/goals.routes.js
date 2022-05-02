@@ -7,7 +7,7 @@ const goalsRouter = Router();
 //создание цели
 goalsRouter.post('/', auth, goalController.create);
 
-//выполнение цели?
+//выполнение цели
 goalsRouter.put('/:id', auth, goalController.doTheTask);
 
 //подписка на цель

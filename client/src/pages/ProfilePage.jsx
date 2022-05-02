@@ -8,7 +8,7 @@ import './profile.css';
 
 export default function ProfilePage() {
   const username = useSelector(state => state.auth.user.username);
-  const description = 'Описание';
+  const description = useSelector(state => state.profile.description);
   const avatar = avatarLogo;
 
   return (

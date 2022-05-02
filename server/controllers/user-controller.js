@@ -17,9 +17,21 @@ class userController {
       return res.status(500).json({ message: 'Что-то пошло не так' });
     }
   }
-  async getUserById(req, res) {
+  async updateUserDescription(req, res) {
     try {
-      const user = await UserModel.findById(req.params.id);
+      const { description } = req.body;
+      const user = await UserModel.findOneAndUpdate({ _id: req.user.userId }, { description: description}, {
+        new: true
+      });
+      const desc = user.description;
+      return res.status(200).json({ desc });
+    } catch(e) {
+      return res.status(500).json({ message: 'Что-то пошло не так' });
+    }
+  }
+  async getUserByUsername(req, res) {
+    try {
+      const user = await UserModel.findOne({username: req.params.username}).select('-__v -login -messages -password');
       res.json(user);
     } catch (e) {
       return res.status(500).json({ message: 'Что-то пошло не так' });
