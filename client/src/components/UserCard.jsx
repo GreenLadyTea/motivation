@@ -1,6 +1,6 @@
 import React from 'react';
-import { Card, Nav } from 'react-bootstrap';
-import { NavLink } from 'react-router-dom';
+import { Card } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 export default function UserCard({ username }) {
   return (
@@ -8,9 +8,7 @@ export default function UserCard({ username }) {
       <Card>
         <Card.Body>
           <Card.Text>
-            <Nav.Link as={NavLink} to={`/people/${username}`}>
-              {username}
-            </Nav.Link>
+            <Link to={`/people/${username}`}>{username}</Link>
           </Card.Text>
         </Card.Body>
       </Card>

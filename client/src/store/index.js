@@ -5,11 +5,13 @@ import { profileReducer } from './reducers/profileReducer';
 import { goalsReducer } from './reducers/goalsReducer';
 import { composeWithDevTools } from '@redux-devtools/extension';
 import { usersReducer } from './reducers/usersReducer';
+import { otherProfileReducer } from './reducers/otherProfileReducer';
 
 const rootReducer = combineReducers({
   auth: authReducer,
   goals: goalsReducer,
   profile: profileReducer,
+  otherProfile: otherProfileReducer,
   users: usersReducer
 });
 
