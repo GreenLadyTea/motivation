@@ -45,7 +45,7 @@ class GoalController {
     }
   }
 
-  async getAllByUser(req, res) {
+  async getAllOfAuthorizedUser(req, res) {
     try {
       const goals = await GoalModel.find({ user: req.user.userId }).select('-__v -subscribers');
       return res.status(200).json(goals);
@@ -54,10 +54,11 @@ class GoalController {
     }
   }
 
-  async getOne(req, res) {
+  async getAllByUsername(req, res) {
     try {
-      const goal = await GoalModel.findById(req.params.id);
-      return res.status(200).json(goal);
+      const user = await UserModel.findOne({ username: req.params.username });
+      const goals = await GoalModel.find({ user: user._id });
+      return res.status(200).json(goals);
     } catch (e) {
       return res.status(500).json({ message: 'Что-то пошло не так' });
     }

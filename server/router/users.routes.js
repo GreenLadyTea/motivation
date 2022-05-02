@@ -13,6 +13,9 @@ usersRouter.get('/', auth, userController.getUser);
 //обновление описания пользователя
 usersRouter.post('/description', auth, userController.updateUserDescription);
 
+//обновление имени пользователя
+usersRouter.post('/username', auth, userController.updateUserName);
+
 //получение пользователя по username
 usersRouter.get('/:username', auth, userController.getUserByUsername);
 

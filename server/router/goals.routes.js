@@ -17,9 +17,9 @@ goalsRouter.put('/track/:id', auth, goalController.trackGoal);
 goalsRouter.get('/all', auth, goalController.getAll);
 
 //получение целей текущего пользователя
-goalsRouter.get('/', auth, goalController.getAllByUser);
+goalsRouter.get('/', auth, goalController.getAllOfAuthorizedUser);
 
-//получение цели по id
-goalsRouter.get('/:id', auth, goalController.getOne);
+//получение целей пользователя по username
+goalsRouter.get('/:username', auth, goalController.getAllByUsername);
 
 module.exports = goalsRouter;
