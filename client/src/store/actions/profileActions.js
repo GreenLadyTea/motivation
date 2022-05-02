@@ -5,12 +5,18 @@ const URL = 'http://localhost:5000/api/goals';
 const usersURL = 'http://localhost:5000/api/users';
 
 export const PROFILE_ACTIONS = {
+  SET_USERNAME: 'setUsername',
   SET_DESCRIPTION: 'setDescription',
   SET_GOALS: 'setGoals',
   FILTER: 'filter',
   SEARCH: 'search',
   EXECUTE: 'execute'
 };
+
+export const setUsername = username => ({
+  type: PROFILE_ACTIONS.SET_USERNAME,
+  payload: username
+});
 
 export const setDescription = description => ({
   type: PROFILE_ACTIONS.SET_DESCRIPTION,
@@ -37,12 +43,30 @@ export const search = searchbar => ({
   payload: searchbar
 });
 
-export const addDescription = (description) => async dispatch => {
+export const updateDescription = async description => {
   try {
-    const response = await axios.post(`${usersURL}/description`, { description },{
+    return await axios.post(
+      `${usersURL}/description`,
+      { description },
+      {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+      }
+    );
+  } catch (e) {
+    return {
+      status: e.response.status,
+      message: e.response.data.message
+    };
+  }
+};
+
+export const getUser = () => async dispatch => {
+  try {
+    const response = await axios.get(`${usersURL}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     });
-    dispatch(setDescription(response.data.desc));
+    dispatch(setDescription(response.data.description));
+    dispatch(setUsername(response.data.username));
     return {
       status: response.status
     };

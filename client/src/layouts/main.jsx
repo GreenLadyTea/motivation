@@ -10,7 +10,7 @@ export default function MainLayout() {
   const navigate = useNavigate();
   function handleClick() {
     dispatch(logout());
-    navigate('/');
+    navigate('/authorization');
   }
   return (
     <>

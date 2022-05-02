@@ -1,25 +1,22 @@
 import React, { useState } from 'react';
 import { Alert, Button, Form } from 'react-bootstrap';
-import { create } from '../store/actions/goalsActions';
 import { useNavigate } from 'react-router-dom';
+import { updateDescription } from '../store/actions/profileActions';
+import { useSelector } from 'react-redux';
 
-export default function CreateGoalPage() {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [termin, setTermin] = useState('');
+export default function UpdateProfilePage() {
+  const text = useSelector(state => state.profile.description);
+  const [description, setDescription] = useState(text);
   const [show, setShow] = useState('');
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const term = termin.replace(/T/, ' ');
-    const response = await create(title, description, term);
-    if (response.status === 201) {
-      setTitle('');
+    const response = await updateDescription(description);
+    if (response.status === 200) {
       setDescription('');
-      setTermin('');
-      setMessage('Вперёд к своей цели!');
+      setMessage('Профиль успешно обновлен!');
       setShow('success');
       setTimeout(() => navigate('/profile'), 1000);
     } else {
@@ -30,7 +27,7 @@ export default function CreateGoalPage() {
 
   return (
     <div className="container">
-      <h1>Новая цель</h1>
+      <h1>Редактирование описания профиля</h1>
 
       {show === 'danger' && (
         <Alert variant={show}>
@@ -47,38 +44,19 @@ export default function CreateGoalPage() {
       )}
 
       <Form className="col-md-6" onSubmit={handleSubmit}>
-        <Form.Group className="mb-3">
-          <Form.Label>Цель</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Сформулируйте свою цель"
-            value={title}
-            onChange={e => setTitle(e.target.value)}
-          />
-        </Form.Group>
-
-        <Form.Group className="mb-3">
-          <Form.Label>Срок выполнения</Form.Label>
-          <Form.Control
-            type="datetime-local"
-            value={termin}
-            onChange={e => setTermin(e.target.value)}
-          />
-        </Form.Group>
-
         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
           <Form.Label>Описание</Form.Label>
           <Form.Control
             as="textarea"
             rows={3}
             value={description}
-            placeholder="Подробнее раскройте суть своего плана"
+            placeholder="Расскажите о себе"
             onChange={e => setDescription(e.target.value)}
           />
         </Form.Group>
 
         <Button variant="primary" type="submit">
-          Поставить новую цель
+          Обновить описание
         </Button>
       </Form>
     </div>

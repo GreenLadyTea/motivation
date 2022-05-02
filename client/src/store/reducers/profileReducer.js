@@ -1,7 +1,8 @@
 import { PROFILE_ACTIONS } from '../actions/profileActions';
 
 export const initialState = {
-  description: '',
+  username: '',
+  description: 'Нет описания',
   goals: [],
   filter: '',
   searchbar: ''
@@ -9,6 +10,9 @@ export const initialState = {
 
 export function profileReducer(state = initialState, action) {
   switch (action.type) {
+    case PROFILE_ACTIONS.SET_USERNAME: {
+      return { ...state, username: action.payload };
+    }
     case PROFILE_ACTIONS.SET_DESCRIPTION: {
       return { ...state, description: action.payload };
     }

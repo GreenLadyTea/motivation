@@ -11,6 +11,7 @@ import CreateGoalPage from './pages/CreateGoalPage';
 import AuthLayout from './layouts/auth';
 import RegistrationPage from './pages/RegistrationPage';
 import UserPage from './pages/UserPage';
+import UpdateProfilePage from './pages/UpdateProfilePage';
 
 export default function useRoutes(isAuth) {
   if (isAuth) {
@@ -24,6 +25,7 @@ export default function useRoutes(isAuth) {
             <Route path="people" element={<PeoplePage />} />
             <Route path="people/:username" element={<UserPage />} />
             <Route path="profile" element={<ProfilePage />} />
+            <Route path="profile/update" element={<UpdateProfilePage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>
