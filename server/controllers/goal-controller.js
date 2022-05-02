@@ -57,7 +57,7 @@ class GoalController {
   async getAllByUsername(req, res) {
     try {
       const user = await UserModel.findOne({ username: req.params.username });
-      const goals = await GoalModel.find({ user: user._id });
+      const goals = await GoalModel.find({ user: user._id }).select('-__v -subscribers -updatedAt');
       return res.status(200).json(goals);
     } catch (e) {
       return res.status(500).json({ message: 'Что-то пошло не так' });

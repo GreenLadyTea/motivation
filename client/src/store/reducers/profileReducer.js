@@ -4,8 +4,7 @@ export const initialState = {
   username: '',
   description: 'Нет описания',
   goals: [],
-  filter: '',
-  searchbar: ''
+  filter: ''
 };
 
 export function profileReducer(state = initialState, action) {
@@ -29,9 +28,6 @@ export function profileReducer(state = initialState, action) {
     }
     case PROFILE_ACTIONS.FILTER: {
       return { ...state, filter: action.payload };
-    }
-    case PROFILE_ACTIONS.SEARCH: {
-      return { ...state, searchbar: action.payload };
     }
     default: {
       return state;

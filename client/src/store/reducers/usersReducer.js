@@ -1,13 +1,17 @@
-import { USER_ACTIONS } from '../actions/usersActions';
+import { USERS_ACTIONS } from '../actions/usersActions';
 
 export const initialState = {
-  users: []
+  users: [],
+  searchbar: ''
 };
 
 export function usersReducer(state = initialState, action) {
   switch (action.type) {
-    case USER_ACTIONS.SET_USERS: {
+    case USERS_ACTIONS.SET_USERS: {
       return { ...state, users: action.payload };
+    }
+    case USERS_ACTIONS.SEARCH: {
+      return { ...state, searchbar: action.payload };
     }
     default: {
       return state;

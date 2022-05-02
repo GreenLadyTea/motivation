@@ -9,7 +9,6 @@ export const PROFILE_ACTIONS = {
   SET_DESCRIPTION: 'setDescription',
   SET_GOALS: 'setGoals',
   FILTER: 'filter',
-  SEARCH: 'search',
   EXECUTE: 'execute'
 };
 
@@ -36,11 +35,6 @@ export const execute = id => ({
 export const filter = filter => ({
   type: PROFILE_ACTIONS.FILTER,
   payload: filter
-});
-
-export const search = searchbar => ({
-  type: PROFILE_ACTIONS.SEARCH,
-  payload: searchbar
 });
 
 export const updateDescription = async description => {

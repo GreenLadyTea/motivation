@@ -1,10 +1,9 @@
 import React from 'react';
 import avatarLogo from '../images/default_avatar.jpg';
 import './profile.css';
-import { useParams } from 'react-router-dom';
 
 export default function UserPage() {
-  const { username } = useParams();
+  const username = '';
   const description = 'Описание';
   const avatar = avatarLogo;
 
@@ -17,7 +16,7 @@ export default function UserPage() {
           <div>{description}</div>
         </div>
       </div>
-      <h2>Мои цели </h2>
+      <h2>Цели пользователя</h2>
     </div>
   );
 }
