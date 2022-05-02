@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, Button, Stack } from 'react-bootstrap';
 import { trackGoal } from '../store/actions/goalsActions';
+import { Link } from 'react-router-dom';
 
 export default function GoalCard({ id, title, username, term, description, createdAt }) {
   const fixedTerm = createdAt.slice(0, 10);
@@ -24,7 +25,7 @@ export default function GoalCard({ id, title, username, term, description, creat
           <Card.Text>
             {description}
             <br />
-            {username}
+            <Link to={`/people/${username}`}>{username}</Link>
           </Card.Text>
           <Button variant="primary" onClick={handleClick}>
             Мотивировать
