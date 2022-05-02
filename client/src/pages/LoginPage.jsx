@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { logIn } from '../store/actions/authActions';
+import { useNavigate } from 'react-router-dom';
 
 export default function LoginPage() {
   const [show, setShow] = useState('');
@@ -9,6 +10,7 @@ export default function LoginPage() {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -16,6 +18,7 @@ export default function LoginPage() {
     if (response.status === 200) {
       setPassword('');
       setLogin('');
+      navigate('/profile');
     } else {
       setMessage(response.message);
       setShow('danger');
