@@ -1,11 +1,18 @@
 const GoalModel = require('../models/Goal');
 const UserModel = require('../models/User');
 
+const GOAL_STATUS = {
+  NEW: 'new',
+  WAITING: 'waiting',
+  SUCCESS: 'success',
+  FAILED: 'failed'
+}
+
 class GoalController {
   async create(req, res) {
     try {
       const { title, description, term } = req.body;
-      const goal = await GoalModel.create({ user: req.user.userId, title, description, term, status: 'new' });
+      const goal = await GoalModel.create({ user: req.user.userId, title, description, term, status: GOAL_STATUS.NEW });
       return res.status(201).json({ goal });
     } catch (e) {
       return res.status(500).json({ message: 'Поля должны быть заполнены' });
@@ -14,7 +21,7 @@ class GoalController {
 
   async doTheTask(req, res) {
     try {
-      const goal = await GoalModel.findOneAndUpdate({ _id: req.params.id, user: req.user.userId }, { status: "done"}, {
+      const goal = await GoalModel.findOneAndUpdate({ _id: req.params.id, user: req.user.userId }, { status: GOAL_STATUS.WAITING}, {
         new: true
       });
       return res.status(200).json({ goal });
@@ -73,6 +80,20 @@ class GoalController {
         user: user
       });
     } catch (e) {
+      return res.status(500).json({ message: 'Что-то пошло не так' });
+    }
+  }
+
+  async getTrackedByUsername(req, res) {
+    try {
+      const user = await UserModel.findOne({ username: req.params.username });
+      const goals_array = [];
+      for (let i = 0; i < user.trackedGoals.length; i++) {
+        const goal = await GoalModel.findById(user.trackedGoals[i]).select('-__v -subscribers -updatedAt');
+        goals_array.push(goal);
+      }
+      return res.status(200).json(goals_array);
+    } catch(e) {
       return res.status(500).json({ message: 'Что-то пошло не так' });
     }
   }
