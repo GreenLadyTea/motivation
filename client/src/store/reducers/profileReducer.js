@@ -16,7 +16,7 @@ export function profileReducer(state = initialState, action) {
       return { ...state, description: action.payload };
     }
     case PROFILE_ACTIONS.SET_GOALS: {
-      return { ...state, goals: action.payload };
+      return { ...state, goals: [...action.payload] };
     }
     case PROFILE_ACTIONS.EXECUTE: {
       for (let i = 0; i < state.goals.length; i++) {

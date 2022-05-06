@@ -1,15 +1,15 @@
-import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getGoals } from '../store/actions/profileActions';
+import ProfileGoalCard from './ProfileGoalCard';
 import { Stack } from 'react-bootstrap';
-import GoalCard from './GoalCard';
-import { getUserGoals } from '../store/actions/otherProfileActions';
 
-export default function UserGoalsList({ username }) {
-  const goals = useSelector(state => state.otherProfile.goals);
+export default function ProfileGoalsList() {
+  const goals = useSelector(state => state.profile.goals);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUserGoals(username));
+    dispatch(getGoals());
   }, []);
 
   function renderList() {
@@ -20,14 +20,14 @@ export default function UserGoalsList({ username }) {
       <>
         <Stack gap={3} className="col-md-6">
           {goals.map(goal => (
-            <GoalCard
+            <ProfileGoalCard
               key={goal._id}
               id={goal._id}
               title={goal.title}
-              username={false}
               description={goal.description}
               createdAt={goal.createdAt}
               term={goal.term}
+              status={goal.status}
             />
           ))}
         </Stack>
@@ -36,7 +36,7 @@ export default function UserGoalsList({ username }) {
   }
   return (
     <>
-      <div>{renderList()}</div>
+      <div data-testid="list">{renderList()}</div>
     </>
   );
 }

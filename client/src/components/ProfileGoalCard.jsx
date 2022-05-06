@@ -3,7 +3,7 @@ import { Card, Button, Stack } from 'react-bootstrap';
 import { doGoal } from '../store/actions/profileActions';
 import { useDispatch } from 'react-redux';
 
-export default function UserGoalCard({ id, title, term, description, createdAt, status }) {
+export default function ProfileGoalCard({ id, title, term, description, createdAt, status }) {
   const dispatch = useDispatch();
   async function handleClick() {
     const response = await dispatch(doGoal(id));

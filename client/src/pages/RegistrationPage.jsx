@@ -11,26 +11,41 @@ export default function RegistrationPage() {
   const [username, setUsername] = useState('');
   const navigate = useNavigate();
   const [show, setShow] = useState('normal');
+  const usernamePattern = /^\w{3,20}$/;
+
+  function validateForm() {
+    let outcome = true;
+    let message = '';
+    if (!usernamePattern.test(username)) {
+      message += 'Ник содержит только английские буквы, цифры и подчеркивание';
+      setShow('danger');
+      outcome = false;
+    }
+    if (password !== repeatedPassword) {
+      message += ' Введенные пароли не совпадают';
+      setShow('danger');
+      outcome = false;
+    }
+    setMessage(message);
+    return outcome;
+  }
 
   async function handleClick(e) {
     e.preventDefault();
-    if (password !== repeatedPassword) {
-      setMessage('Пароли не совпадают');
-      setShow('danger');
-      return;
-    }
-    const response = await signUp(login, password, username);
-    if (response.status === 201) {
-      setShow('success');
-      setMessage(response.message);
-      setPassword('');
-      setLogin('');
-      setUsername('');
-      setRepeatedPassword('');
-      setTimeout(() => navigate('/authorization'), 1000);
-    } else {
-      setMessage(response.message);
-      setShow('danger');
+    if (validateForm()) {
+      const response = await signUp(login, password, username);
+      if (response.status === 201) {
+        setShow('success');
+        setMessage(response.message);
+        setPassword('');
+        setLogin('');
+        setUsername('');
+        setRepeatedPassword('');
+        setTimeout(() => navigate('/authorization'), 1000);
+      } else {
+        setMessage(response.message);
+        setShow('danger');
+      }
     }
   }
 

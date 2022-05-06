@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const URL = 'http://localhost:5000/api/goals';
+const goalsURL = 'http://localhost:5000/api/goals';
 
 const usersURL = 'http://localhost:5000/api/users';
 
@@ -74,7 +74,7 @@ export const getUser = () => async dispatch => {
 
 export const getGoals = () => async dispatch => {
   try {
-    const response = await axios.get(`${URL}`, {
+    const response = await axios.get(`${goalsURL}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     });
     dispatch(setGoals(response.data));
@@ -92,7 +92,7 @@ export const getGoals = () => async dispatch => {
 export const doGoal = id => async dispatch => {
   try {
     const response = await axios.put(
-      `${URL}/${id}`,
+      `${goalsURL}/${id}`,
       {},
       {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }

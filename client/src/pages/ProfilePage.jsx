@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
-import UserGoalsList from '../components/UserGoalsList';
+import ProfileGoalsList from '../components/ProfileGoalsList';
 import avatarLogo from '../images/default_avatar.jpg';
 import './profile.css';
 import { getUser } from '../store/actions/profileActions';
@@ -37,7 +37,7 @@ export default function ProfilePage() {
       </h2>
 
       <div>
-        <UserGoalsList />
+        <ProfileGoalsList />
       </div>
     </div>
   );

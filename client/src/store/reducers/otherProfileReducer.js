@@ -11,6 +11,9 @@ export function otherProfileReducer(state = initialState, action) {
     case OTHER_PROFILE_ACTIONS.SET_DESCRIPTION: {
       return { ...state, description: action.payload };
     }
+    case OTHER_PROFILE_ACTIONS.SET_GOALS: {
+      return { ...state, goals: [...action.payload] };
+    }
     default: {
       return state;
     }

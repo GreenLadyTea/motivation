@@ -9,7 +9,7 @@ export const initialState = {
 export function goalsReducer(state = initialState, action) {
   switch (action.type) {
     case GOALS_ACTIONS.SET_GOALS: {
-      return { ...state, goals: action.payload };
+      return { ...state, goals: [...action.payload] };
     }
     case GOALS_ACTIONS.SEARCH: {
       return { ...state, searchBar: action.payload };

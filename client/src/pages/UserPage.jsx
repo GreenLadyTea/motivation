@@ -4,6 +4,7 @@ import './profile.css';
 import { useParams } from 'react-router-dom';
 import { getDescription } from '../store/actions/otherProfileActions';
 import { useDispatch, useSelector } from 'react-redux';
+import UserGoalsList from '../components/UserGoalsList';
 
 export default function UserPage() {
   const { username } = useParams();
@@ -25,6 +26,9 @@ export default function UserPage() {
         </div>
       </div>
       <h2>Цели пользователя</h2>
+      <div>
+        <UserGoalsList username={username} />
+      </div>
     </div>
   );
 }

@@ -25,7 +25,7 @@ export default function GoalCard({ id, title, username, term, description, creat
           <Card.Text>
             {description}
             <br />
-            <Link to={`/people/${username}`}>{username}</Link>
+            {username ? <Link to={`/people/${username}`}>{username}</Link> : ''}
           </Card.Text>
           <Button variant="primary" onClick={handleClick}>
             Мотивировать
