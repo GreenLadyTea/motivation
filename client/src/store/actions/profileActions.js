@@ -8,6 +8,7 @@ export const PROFILE_ACTIONS = {
   SET_USERNAME: 'setUsername',
   SET_DESCRIPTION: 'setDescription',
   SET_GOALS: 'setGoals',
+  SET_TRACKED_GOALS: 'setTrackedGoals',
   FILTER: 'filter',
   EXECUTE: 'execute'
 };
@@ -24,6 +25,11 @@ export const setDescription = description => ({
 
 export const setGoals = goals => ({
   type: PROFILE_ACTIONS.SET_GOALS,
+  payload: goals
+});
+
+export const setTrackedGoals = goals => ({
+  type: PROFILE_ACTIONS.SET_TRACKED_GOALS,
   payload: goals
 });
 
@@ -78,6 +84,24 @@ export const getGoals = () => async dispatch => {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     });
     dispatch(setGoals(response.data));
+    return {
+      status: response.status
+    };
+  } catch (e) {
+    return {
+      status: e.response.status,
+      message: e.response.data.message
+    };
+  }
+};
+
+export const getTrackedGoals = username => async dispatch => {
+  try {
+    const response = await axios.get(`${goalsURL}/tracked/${username}`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+    });
+    console.log(response.data);
+    dispatch(setTrackedGoals(response.data));
     return {
       status: response.status
     };

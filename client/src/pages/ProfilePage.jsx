@@ -1,17 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
+import { Button, Tab, Tabs } from 'react-bootstrap';
 import ProfileGoalsList from '../components/ProfileGoalsList';
 import avatarLogo from '../images/default_avatar.jpg';
 import './profile.css';
 import { getUser } from '../store/actions/profileActions';
+import ProfileTrackedGoalsList from '../components/ProfileTrackedGoalsList';
 
 export default function ProfilePage() {
   const username = useSelector(state => state.profile.username);
+  const name = useSelector(state => state.auth.user.username);
   const description = useSelector(state => state.profile.description);
   const avatar = avatarLogo;
   const dispatch = useDispatch();
+
+  const [key, setKey] = useState('Мои');
 
   useEffect(() => {
     dispatch(getUser());
@@ -36,9 +40,19 @@ export default function ProfilePage() {
         </Button>
       </h2>
 
-      <div>
-        <ProfileGoalsList />
-      </div>
+      <Tabs
+        id="controlled-tab-example"
+        activeKey={key}
+        onSelect={k => setKey(k)}
+        className="col-md-6 mb-3"
+      >
+        <Tab eventKey="Мои" title="Мои">
+          <ProfileGoalsList />
+        </Tab>
+        <Tab eventKey="Отслеживаемые" title="Отслеживаемые">
+          <ProfileTrackedGoalsList username={name} />
+        </Tab>
+      </Tabs>
     </div>
   );
 }

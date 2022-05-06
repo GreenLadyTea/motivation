@@ -4,6 +4,7 @@ export const initialState = {
   username: '',
   description: 'Нет описания',
   goals: [],
+  trackedGoals: [],
   filter: ''
 };
 
@@ -17,6 +18,9 @@ export function profileReducer(state = initialState, action) {
     }
     case PROFILE_ACTIONS.SET_GOALS: {
       return { ...state, goals: [...action.payload] };
+    }
+    case PROFILE_ACTIONS.SET_TRACKED_GOALS: {
+      return { ...state, trackedGoals: [...action.payload] };
     }
     case PROFILE_ACTIONS.EXECUTE: {
       for (let i = 0; i < state.goals.length; i++) {
