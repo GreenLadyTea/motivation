@@ -6,11 +6,11 @@ import GoalCard from './GoalCard';
 
 export default function AllGoalsList() {
   const goals = useSelector(state => state.goals.goals);
-  const id = useSelector(state => state.auth.user.id);
+  const userId = useSelector(state => state.auth.user.id);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAllGoals(id));
+    dispatch(getAllGoals(userId));
   }, []);
 
   function renderList() {

@@ -46,8 +46,6 @@ export const getAllGoals = id => async dispatch => {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     });
     const allGoals = response.data;
-    console.log(allGoals[0].userId);
-    console.log(id);
     const reducedGoals = allGoals.filter(goal => goal.userId !== id);
     dispatch(setGoals(reducedGoals));
     return {

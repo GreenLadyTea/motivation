@@ -37,7 +37,7 @@ class GoalController {
       for (let i = 0; i < goals.length; i++) {
         const user = await UserModel.findById(goals[i].user);
         goals_array[i] = {
-          id: goals[i]._id,
+          _id: goals[i]._id,
           userId: goals[i].user,
           username: user.username,
           title: goals[i].title,
