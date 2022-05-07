@@ -12,6 +12,14 @@ class commentController {
       return res.status(500).json({ message: 'Что-то пошло не так' });
     }
   }
+  async getAllByGoal(req, res) {
+    try {
+      const comments = await CommentModel.find({ goal: req.params.id });
+      return res.status(200).json(comments);
+    } catch (e) {
+      return res.status(500).json({ message: 'Что-то пошло не так' });
+    }
+  }
 }
 
 module.exports = new commentController();
