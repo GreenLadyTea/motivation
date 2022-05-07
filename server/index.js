@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const authRouter = require('./router/auth.routes');
 const goalsRouter = require('./router/goals.routes');
 const usersRouter = require('./router/users.routes');
+const commentsRouter = require('./router/comments.routes');
 
 const PORT = process.env.PORT || 5000;
 const app = express();
@@ -20,6 +21,7 @@ app.use(cors({
 app.use('/api/auth', authRouter);
 app.use('/api/goals', goalsRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/comments', commentsRouter);
 
 async function start() {
     try {

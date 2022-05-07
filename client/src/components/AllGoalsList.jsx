@@ -19,7 +19,7 @@ export default function AllGoalsList() {
     }
     return (
       <>
-        <Stack gap={3} className="col-md-6">
+        <Stack gap={3} className="col-md-8">
           {goals.map(goal => (
             <GoalCard
               key={goal._id}

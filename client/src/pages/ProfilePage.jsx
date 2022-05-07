@@ -44,7 +44,7 @@ export default function ProfilePage() {
         id="controlled-tab-example"
         activeKey={key}
         onSelect={k => setKey(k)}
-        className="col-md-6 mb-3"
+        className="col-md-8 mb-3"
       >
         <Tab eventKey="Мои" title="Мои">
           <ProfileGoalsList />

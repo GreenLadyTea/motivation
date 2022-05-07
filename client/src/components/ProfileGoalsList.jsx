@@ -18,7 +18,7 @@ export default function ProfileGoalsList() {
     }
     return (
       <>
-        <Stack gap={3} className="col-md-6">
+        <Stack gap={3} className="col-md-8">
           {goals.map(goal => (
             <ProfileGoalCard
               key={goal._id}
