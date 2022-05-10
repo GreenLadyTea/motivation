@@ -1,7 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getGoal } from '../store/actions/goalPageActions';
+import { getGoal, postComment } from '../store/actions/goalPageActions';
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
 
 export default function GoalPage() {
@@ -13,6 +13,14 @@ export default function GoalPage() {
   useEffect(() => {
     dispatch(getGoal(id));
   }, []);
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const response = await postComment(id, comment);
+    if (response.status === 201) {
+      setComment('');
+    }
+  }
 
   return (
     <Container>
@@ -34,7 +42,7 @@ export default function GoalPage() {
         </Card>
       </Row>
       <Row>
-        <Form className="col-md-8">
+        <Form className="col-md-8" onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
             <Form.Label>
               <h3>Мой комментарий</h3>

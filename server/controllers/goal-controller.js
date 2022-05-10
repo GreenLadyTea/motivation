@@ -13,7 +13,10 @@ class GoalController {
     try {
       const { title, description, term } = req.body;
       const goal = await GoalModel.create({ user: req.user.userId, title, description, term, status: GOAL_STATUS.NEW });
-      return res.status(201).json({ goal });
+      const user = await UserModel.findOneAndUpdate({_id: req.user.userId}, {$push: { goals : goal._id }});
+      const goal_title = goal.title;
+      const user_name = user.username;
+      return res.status(201).json({ goal_title, user_name });
     } catch (e) {
       return res.status(500).json({ message: 'Поля должны быть заполнены' });
     }

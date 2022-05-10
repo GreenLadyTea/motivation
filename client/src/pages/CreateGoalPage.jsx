@@ -13,7 +13,6 @@ export default function CreateGoalPage() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log(termin);
     const term = new Date(termin);
     const response = await create(title, description, term);
     if (response.status === 201) {

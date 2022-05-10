@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const goalsURL = 'http://localhost:5000/api/goals/';
+const commentsURL = 'http://localhost:5000/api/comments/';
 
 export const GOAL_PAGE_ACTIONS = {
   SET_GOAL: 'setGoal',
@@ -32,6 +33,23 @@ export const getGoal = id => async dispatch => {
     return {
       status: response.status
     };
+  } catch (e) {
+    return {
+      status: e.response.status,
+      message: e.response.data.message
+    };
+  }
+};
+
+export const postComment = async (goalId, text) => {
+  try {
+    return await axios.post(
+      `${commentsURL}`,
+      { goalId, text },
+      {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+      }
+    );
   } catch (e) {
     return {
       status: e.response.status,
