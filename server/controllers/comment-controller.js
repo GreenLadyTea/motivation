@@ -13,7 +13,7 @@ class commentController {
       const username = user.username;
       const title = goalUpdate.title;
       const commentText = comment.text;
-      const createdAt = comment.createdAt.toLocaleString();
+      const createdAt = comment.createdAt.toLocaleString().slice(0,17);
       return res.status(201).json({ username, title, commentText, createdAt });
     } catch (e) {
       return res.status(500).json({ message: 'Что-то пошло не так' });
@@ -21,8 +21,18 @@ class commentController {
   }
   async getAllByGoal(req, res) {
     try {
-      const comments = await CommentModel.find({ goal: req.params.id });
-      return res.status(200).json(comments);
+      const comments = await CommentModel.find({ goal: req.params.id }).select('-updatedAt -__v');
+      const comm_array = [];
+      for (let i = 0; i < comments.length; i++) {
+        const user = await UserModel.findById(comments[i].user);
+        comm_array[i] = {
+          id: comments[i]._id,
+          username: user.username,
+          text: comments[i].text,
+          createdAt: comments[i].createdAt.toLocaleString().slice(0,17)
+        }
+      }
+      return res.status(200).json(comm_array);
     } catch (e) {
       return res.status(500).json({ message: 'Что-то пошло не так' });
     }

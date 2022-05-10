@@ -57,3 +57,20 @@ export const postComment = async (goalId, text) => {
     };
   }
 };
+
+export const getComments = id => async dispatch => {
+  try {
+    const response = await axios.get(`${commentsURL}${id}`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+    });
+    dispatch(setComments(response.data));
+    return {
+      status: response.status
+    };
+  } catch (e) {
+    return {
+      status: e.response.status,
+      message: e.response.data.message
+    };
+  }
+};

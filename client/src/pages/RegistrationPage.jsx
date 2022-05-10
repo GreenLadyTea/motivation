@@ -71,7 +71,7 @@ export default function RegistrationPage() {
           <Form.Label>Логин</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Введите логин"
+            placeholder="Введите свой email"
             value={login}
             onChange={e => setLogin(e.target.value)}
           />
@@ -81,7 +81,7 @@ export default function RegistrationPage() {
           <Form.Label>Имя пользователя</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Введите фамилию"
+            placeholder="Имя латинскими буквами, цифрами и знаком подчеркивания"
             value={username}
             onChange={e => setUsername(e.target.value)}
           />
