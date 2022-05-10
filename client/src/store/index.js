@@ -6,10 +6,12 @@ import { goalsReducer } from './reducers/goalsReducer';
 import { composeWithDevTools } from '@redux-devtools/extension';
 import { usersReducer } from './reducers/usersReducer';
 import { otherProfileReducer } from './reducers/otherProfileReducer';
+import { goalPageReducer } from './reducers/goalPageReducer';
 
 const rootReducer = combineReducers({
   auth: authReducer,
   goals: goalsReducer,
+  goalPage: goalPageReducer,
   profile: profileReducer,
   otherProfile: otherProfileReducer,
   users: usersReducer

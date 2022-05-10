@@ -44,6 +44,7 @@ export default function LoginPage() {
             placeholder="Введите логин"
             value={login}
             onChange={e => setLogin(e.target.value)}
+            required
           />
         </Form.Group>
 
@@ -54,6 +55,7 @@ export default function LoginPage() {
             placeholder="Введите пароль"
             value={password}
             onChange={e => setPassword(e.target.value)}
+            required
           />
         </Form.Group>
 

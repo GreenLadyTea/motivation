@@ -22,6 +22,9 @@ goalsRouter.get('/', auth, goalController.getAllOfAuthorizedUser);
 //получение целей пользователя по username
 goalsRouter.get('/:username', auth, goalController.getAllByUsername);
 
+//получение цели по id
+goalsRouter.get('/goal/:id', auth, goalController.getById);
+
 //получение отслеживаемых целей пользователя
 goalsRouter.get('/tracked/:username', auth, goalController.getTrackedByUsername);
 

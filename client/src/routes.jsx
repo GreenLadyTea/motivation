@@ -12,6 +12,7 @@ import AuthLayout from './layouts/auth';
 import RegistrationPage from './pages/RegistrationPage';
 import UserPage from './pages/UserPage';
 import UpdateProfilePage from './pages/UpdateProfilePage';
+import GoalPage from './pages/GoalPage';
 
 export default function useRoutes(isAuth) {
   if (isAuth) {
@@ -21,6 +22,7 @@ export default function useRoutes(isAuth) {
           <Route path="/" element={<MainLayout />}>
             <Route index element={<HomePage />} />
             <Route path="goals" element={<GoalsPage />} />
+            <Route path="goals/:id" element={<GoalPage />} />
             <Route path="goals/new" element={<CreateGoalPage />} />
             <Route path="people" element={<PeoplePage />} />
             <Route path="people/:username" element={<UserPage />} />

@@ -15,7 +15,9 @@ export default function GoalCard({ id, title, username, term, description, creat
     <>
       <Card>
         <Card.Body>
-          <Card.Title>{title}</Card.Title>
+          <Card.Title>
+            <Link to={`/goals/${id}`}>{title}</Link>
+          </Card.Title>
           <Card.Subtitle className="mb-2">
             <Stack gap={2} direction="horizontal">
               <div className="text-muted">{fixedTerm}</div>

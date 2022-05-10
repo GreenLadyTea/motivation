@@ -97,6 +97,25 @@ class GoalController {
       return res.status(500).json({ message: 'Что-то пошло не так' });
     }
   }
+
+  async getById(req, res) {
+    try {
+      const goal = await GoalModel.findById(req.params.id);
+      const user = await UserModel.findById(goal.user);
+      const result = {
+        id: goal._id,
+        title: goal.title,
+        username: user.username,
+        description: goal.description,
+        term: goal.term,
+        status: goal.status,
+        createdAt: goal.createdAt
+      };
+      return res.status(200).json(result);
+    } catch (e) {
+      return res.status(500).json({ message: 'Что-то пошло не так' });
+    }
+  }
 }
 
 module.exports = new GoalController();

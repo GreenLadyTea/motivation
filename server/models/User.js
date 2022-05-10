@@ -8,7 +8,7 @@ const UserSchema = new Schema({
     avatar: {type: String, required: false},
     goals: [{type: Schema.Types.ObjectId, ref: 'Goal'}],
     trackedGoals: [{ type: Schema.Types.ObjectId, ref: 'Goal'}],
-    messages: [{type: Schema.Types.ObjectId, ref: 'Message'}]
+    comments: [{type: Schema.Types.ObjectId, ref: 'Comment'}]
 });
 
 module.exports = model('User', UserSchema);
