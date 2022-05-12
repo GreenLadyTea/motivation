@@ -3,6 +3,7 @@ import { Container, Nav, Navbar, Button } from 'react-bootstrap';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../store/actions/authActions';
+import Logo from '../images/logo.svg';
 
 export default function MainLayout() {
   const username = useSelector(state => state.auth.user.username);
@@ -17,7 +18,16 @@ export default function MainLayout() {
       <header>
         <Navbar bg="light" expand="lg">
           <Container>
-            <Navbar.Brand>Кнут и Пряник</Navbar.Brand>
+            <Navbar.Brand>
+              <img
+                src={Logo}
+                width="30"
+                height="30"
+                className="d-inline-block align-top"
+                alt="logo"
+              />
+              Кнут и Пряник
+            </Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav>

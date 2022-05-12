@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect } from 'react';
 import { getAllGoals, REQUEST_STATUS } from '../store/actions/goalsActions';
-import { Stack, Spinner } from 'react-bootstrap';
+import { Stack } from 'react-bootstrap';
 import GoalCard from './GoalCard';
+import Loader from './Loader';
 
 export default function AllGoalsList() {
   const goals = useSelector(state => state.goals.goals);
@@ -22,9 +23,7 @@ export default function AllGoalsList() {
       <>
         {status === REQUEST_STATUS.LOADING && (
           <>
-            <Spinner animation="border" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </Spinner>
+            <Loader />
           </>
         )}
         {status === REQUEST_STATUS.SUCCESS && (

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Alert, Button, Form } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
 
 export default function UpdateGoalPage() {
-  //const { id } = useParams();
+  const { id } = useParams();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [term, setTerm] = useState('');
@@ -20,7 +21,7 @@ export default function UpdateGoalPage() {
       {show === 'danger' && (
         <Alert variant={show}>
           <Alert.Heading>Ошибка!</Alert.Heading>
-          <p>1</p>
+          <p>{id}</p>
         </Alert>
       )}
 

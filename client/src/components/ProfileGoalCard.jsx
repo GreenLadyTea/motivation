@@ -23,7 +23,7 @@ export default function ProfileGoalCard({ id, title, term, description, createdA
               <div>{title}</div>
               <Button className="ms-auto" size="sm" variant="outline-secondary">
                 <svg
-                  onClick={() => navigate(`/update/${id}`)}
+                  onClick={() => navigate(`/goals/update/${id}`)}
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
                   height="16"
