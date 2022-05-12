@@ -37,7 +37,7 @@ export default function MainLayout() {
                 <Nav.Link as={NavLink} to="/people">
                   Люди
                 </Nav.Link>
-                <Nav.Link as={NavLink} to="/">
+                <Nav.Link as={NavLink} to="/profile">
                   {username}
                 </Nav.Link>
                 <Button variant="outline-primary" onClick={handleClick}>

@@ -21,7 +21,7 @@ export default function CreateGoalPage() {
       setTermin('');
       setMessage('Вперёд к своей цели!');
       setShow('success');
-      setTimeout(() => navigate('/'), 1000);
+      setTimeout(() => navigate('/profile'), 1000);
     } else {
       setMessage(response.message);
       setShow('danger');

@@ -19,7 +19,7 @@ export default function ProfilePage() {
 
   useEffect(() => {
     dispatch(getUser());
-  }, [name]);
+  }, []);
 
   return (
     <div className="container-fluid">
@@ -28,14 +28,14 @@ export default function ProfilePage() {
         <div className="user-info">
           <h1>{username}</h1>
           <div className="col-md-8">
-            {[...description].map(function (elem) {
+            {[...description].map(function (elem, index) {
               if (elem === '\n') {
-                return <br />;
+                return <br key={index} />;
               }
               return elem;
             })}
           </div>
-          <Button variant="outline-success" size="sm" as={NavLink} to="/update">
+          <Button variant="outline-success" size="sm" as={NavLink} to="/profile/update">
             Редактировать
           </Button>
         </div>

@@ -13,6 +13,7 @@ import UserPage from './pages/UserPage';
 import UpdateProfilePage from './pages/UpdateProfilePage';
 import GoalPage from './pages/GoalPage';
 import UpdateGoalPage from './pages/UpdateGoalPage';
+import MainPage from './pages/MainPage';
 
 export default function useRoutes(isAuth) {
   if (isAuth) {
@@ -20,14 +21,15 @@ export default function useRoutes(isAuth) {
       <>
         <Routes>
           <Route path="/" element={<MainLayout />}>
-            <Route index element={<ProfilePage />} />
+            <Route index element={<MainPage />} />
             <Route path="goals" element={<GoalsPage />} />
             <Route path="goals/:id" element={<GoalPage />} />
             <Route path="goals/new" element={<CreateGoalPage />} />
             <Route path="goals/update/:id" element={<UpdateGoalPage />} />
             <Route path="people" element={<PeoplePage />} />
             <Route path="people/:username" element={<UserPage />} />
-            <Route path="/update" element={<UpdateProfilePage />} />
+            <Route path="profile" element={<ProfilePage />} />
+            <Route path="profile/update" element={<UpdateProfilePage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>

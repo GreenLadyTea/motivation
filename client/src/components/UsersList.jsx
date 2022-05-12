@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Stack } from 'react-bootstrap';
+import { Form, Stack } from 'react-bootstrap';
 import { getAllUsers } from '../store/actions/usersActions';
 import UserCard from './UserCard';
 
 export default function UsersList() {
+  const [searchText, setSearchText] = useState('');
   const users = useSelector(state => state.users.users);
   const dispatch = useDispatch();
 
@@ -14,10 +15,21 @@ export default function UsersList() {
 
   return (
     <>
+      <div className="mb-3 col-md-6">
+        <Form.Control
+          type="text"
+          placeholder="Найти человека"
+          value={searchText}
+          onChange={e => setSearchText(e.target.value)}
+          required
+        />
+      </div>
       <Stack gap={3} className="col-md-6">
-        {users.map(user => (
-          <UserCard key={user._id} username={user.username} />
-        ))}
+        {users
+          .filter(user => user.username.indexOf(searchText) !== -1)
+          .map(user => (
+            <UserCard key={user._id} username={user.username} />
+          ))}
       </Stack>
     </>
   );

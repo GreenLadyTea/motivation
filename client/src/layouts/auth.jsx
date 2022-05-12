@@ -12,12 +12,12 @@ export default function AuthLayout() {
             <Navbar.Brand>
               <Nav>
                 <img
-                src={Logo}
-                width="30"
-                height="30"
-                className="d-inline-block align-top"
-                alt="logo"
-              />
+                  src={Logo}
+                  width="30"
+                  height="30"
+                  className="d-inline-block align-top"
+                  alt="logo"
+                />
                 Кнут и Пряник
               </Nav>
             </Navbar.Brand>

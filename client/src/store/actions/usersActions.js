@@ -3,18 +3,12 @@ import axios from 'axios';
 const URL = 'http://localhost:5000/api/users';
 
 export const USERS_ACTIONS = {
-  SET_USERS: 'setUsers',
-  SEARCH: 'search'
+  SET_USERS: 'setUsers'
 };
 
 export const setUsers = users => ({
   type: USERS_ACTIONS.SET_USERS,
   payload: users
-});
-
-export const search = searchbar => ({
-  type: USERS_ACTIONS.SEARCH,
-  payload: searchbar
 });
 
 export const getAllUsers = () => async dispatch => {

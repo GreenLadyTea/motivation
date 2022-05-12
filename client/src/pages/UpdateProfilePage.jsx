@@ -18,7 +18,7 @@ export default function UpdateProfilePage() {
       setDescription('');
       setMessage('Профиль успешно обновлен!');
       setShow('success');
-      setTimeout(() => navigate('/'), 1000);
+      setTimeout(() => navigate('/profile'), 1000);
     } else {
       setMessage(response.message);
       setShow('danger');
@@ -48,7 +48,7 @@ export default function UpdateProfilePage() {
           <Form.Label>Описание</Form.Label>
           <Form.Control
             as="textarea"
-            rows={3}
+            rows={10}
             value={description}
             placeholder="Расскажите о себе"
             onChange={e => setDescription(e.target.value)}
