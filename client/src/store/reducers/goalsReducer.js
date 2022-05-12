@@ -1,9 +1,10 @@
-import { GOALS_ACTIONS } from '../actions/goalsActions';
+import { GOALS_ACTIONS, REQUEST_STATUS } from '../actions/goalsActions';
 
 export const initialState = {
   goals: [],
   filter: '',
-  searchbar: ''
+  searchbar: '',
+  requestStatus: REQUEST_STATUS.IDLE
 };
 
 export function goalsReducer(state = initialState, action) {
@@ -13,6 +14,9 @@ export function goalsReducer(state = initialState, action) {
     }
     case GOALS_ACTIONS.SEARCH: {
       return { ...state, searchBar: action.payload };
+    }
+    case GOALS_ACTIONS.SET_REQUEST_STATUS: {
+      return { ...state, requestStatus: action.payload };
     }
     default: {
       return state;

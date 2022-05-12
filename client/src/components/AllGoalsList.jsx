@@ -1,12 +1,13 @@
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect } from 'react';
-import { getAllGoals } from '../store/actions/goalsActions';
-import { Stack } from 'react-bootstrap';
+import { getAllGoals, REQUEST_STATUS } from '../store/actions/goalsActions';
+import { Stack, Spinner } from 'react-bootstrap';
 import GoalCard from './GoalCard';
 
 export default function AllGoalsList() {
   const goals = useSelector(state => state.goals.goals);
   const userId = useSelector(state => state.auth.user.id);
+  const status = useSelector(state => state.goals.requestStatus);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -19,19 +20,30 @@ export default function AllGoalsList() {
     }
     return (
       <>
-        <Stack gap={3} className="col-md-8">
-          {goals.map(goal => (
-            <GoalCard
-              key={goal._id}
-              id={goal._id}
-              title={goal.title}
-              username={goal.username}
-              description={goal.description}
-              createdAt={goal.createdAt}
-              term={goal.term}
-            />
-          ))}
-        </Stack>
+        {status === REQUEST_STATUS.LOADING && (
+          <>
+            <Spinner animation="border" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </Spinner>
+          </>
+        )}
+        {status === REQUEST_STATUS.SUCCESS && (
+          <>
+            <Stack gap={3} className="col-md-8">
+              {goals.map(goal => (
+                <GoalCard
+                  key={goal._id}
+                  id={goal._id}
+                  title={goal.title}
+                  username={goal.username}
+                  description={goal.description}
+                  createdAt={goal.createdAt}
+                  term={goal.term}
+                />
+              ))}
+            </Stack>
+          </>
+        )}
       </>
     );
   }

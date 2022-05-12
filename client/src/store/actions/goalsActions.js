@@ -5,7 +5,15 @@ const URL = 'http://localhost:5000/api/goals';
 export const GOALS_ACTIONS = {
   SET_GOALS: 'setGoals',
   FILTER: 'filter',
-  SEARCH: 'search'
+  SEARCH: 'search',
+  SET_REQUEST_STATUS: 'setRequestStatus'
+};
+
+export const REQUEST_STATUS = {
+  IDLE: 'idle',
+  LOADING: 'loading',
+  SUCCESS: 'success',
+  ERROR: 'error'
 };
 
 export const setGoals = goals => ({
@@ -21,6 +29,11 @@ export const filter = filter => ({
 export const search = searchbar => ({
   type: GOALS_ACTIONS.SEARCH,
   payload: searchbar
+});
+
+export const setRequestStatus = status => ({
+  type: GOALS_ACTIONS.SET_REQUEST_STATUS,
+  payload: status
 });
 
 export const create = async (title, description, term) => {
@@ -42,16 +55,19 @@ export const create = async (title, description, term) => {
 
 export const getAllGoals = id => async dispatch => {
   try {
+    dispatch(setRequestStatus(REQUEST_STATUS.LOADING));
     const response = await axios.get(`${URL}/all`, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     });
     const allGoals = response.data;
     const reducedGoals = allGoals.filter(goal => goal.userId !== id);
     dispatch(setGoals(reducedGoals));
+    dispatch(setRequestStatus(REQUEST_STATUS.SUCCESS));
     return {
       status: response.status
     };
   } catch (e) {
+    dispatch(setRequestStatus(REQUEST_STATUS.ERROR));
     return {
       status: e.response.status,
       message: e.response.data.message
