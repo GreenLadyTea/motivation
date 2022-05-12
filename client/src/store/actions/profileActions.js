@@ -100,7 +100,6 @@ export const getTrackedGoals = username => async dispatch => {
     const response = await axios.get(`${goalsURL}/tracked/${username}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     });
-    console.log(response.data);
     dispatch(setTrackedGoals(response.data));
     return {
       status: response.status

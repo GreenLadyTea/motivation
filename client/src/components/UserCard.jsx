@@ -12,7 +12,7 @@ export default function UserCard({ username }) {
         <Card.Body>
           <Card.Text>
             {username === nick ? (
-              <Link to={`/profile`}>{username}</Link>
+              <Link to={`/`}>{username}</Link>
             ) : (
               <Link to={`/people/${username}`}>{username}</Link>
             )}

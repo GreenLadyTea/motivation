@@ -41,7 +41,7 @@ export default function RegistrationPage() {
         setLogin('');
         setUsername('');
         setRepeatedPassword('');
-        setTimeout(() => navigate('/authorization'), 1000);
+        setTimeout(() => navigate('/'), 1000);
       } else {
         setMessage(response.message);
         setShow('danger');

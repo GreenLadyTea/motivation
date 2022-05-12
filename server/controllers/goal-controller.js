@@ -45,8 +45,8 @@ class GoalController {
           username: user.username,
           title: goals[i].title,
           description: goals[i].description,
-          term: goals[i].term,
-          createdAt: goals[i].createdAt
+          term: goals[i].term.toLocaleString(),
+          createdAt: goals[i].createdAt.toLocaleString()
         }
       }
       return res.status(200).json(goals_array);

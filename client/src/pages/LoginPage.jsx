@@ -18,7 +18,7 @@ export default function LoginPage() {
     if (response.status === 200) {
       setPassword('');
       setLogin('');
-      navigate('/profile');
+      navigate('/');
     } else {
       setMessage(response.message);
       setShow('danger');

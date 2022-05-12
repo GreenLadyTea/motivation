@@ -10,7 +10,7 @@ export default function MainLayout() {
   const navigate = useNavigate();
   function handleClick() {
     dispatch(logout());
-    navigate('/authorization');
+    navigate('/');
   }
   return (
     <>
@@ -20,17 +20,14 @@ export default function MainLayout() {
             <Navbar.Brand>Кнут и Пряник</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
-              <Nav className="me-auto">
-                <Nav.Link as={NavLink} to="/">
-                  Главная
-                </Nav.Link>
+              <Nav>
                 <Nav.Link as={NavLink} to="/goals">
                   Цели
                 </Nav.Link>
                 <Nav.Link as={NavLink} to="/people">
                   Люди
                 </Nav.Link>
-                <Nav.Link as={NavLink} to="/profile">
+                <Nav.Link as={NavLink} to="/">
                   {username}
                 </Nav.Link>
                 <Button variant="outline-primary" onClick={handleClick}>

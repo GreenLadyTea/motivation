@@ -1,48 +1,33 @@
 import React, { useState } from 'react';
 import { Alert, Button, Form } from 'react-bootstrap';
-import { create } from '../store/actions/goalsActions';
-import { useNavigate } from 'react-router-dom';
 
-export default function CreateGoalPage() {
+export default function UpdateGoalPage() {
+  //const { id } = useParams();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [termin, setTermin] = useState('');
+  const [term, setTerm] = useState('');
   const [show, setShow] = useState('');
-  const [message, setMessage] = useState('');
-  const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const term = new Date(termin);
-    const response = await create(title, description, term);
-    if (response.status === 201) {
-      setTitle('');
-      setDescription('');
-      setTermin('');
-      setMessage('Вперёд к своей цели!');
-      setShow('success');
-      setTimeout(() => navigate('/'), 1000);
-    } else {
-      setMessage(response.message);
-      setShow('danger');
-    }
+    setShow('success');
   }
 
   return (
     <div className="container">
-      <h1>Новая цель</h1>
+      <h1>Отредактируйте цель</h1>
 
       {show === 'danger' && (
         <Alert variant={show}>
           <Alert.Heading>Ошибка!</Alert.Heading>
-          <p>{message}</p>
+          <p>1</p>
         </Alert>
       )}
 
       {show === 'success' && (
         <Alert variant={show}>
           <Alert.Heading>Успех</Alert.Heading>
-          <p>{message}</p>
+          <p>2</p>
         </Alert>
       )}
 
@@ -61,8 +46,8 @@ export default function CreateGoalPage() {
           <Form.Label>Срок выполнения</Form.Label>
           <Form.Control
             type="datetime-local"
-            value={termin}
-            onChange={e => setTermin(e.target.value)}
+            value={term}
+            onChange={e => setTerm(e.target.value)}
           />
         </Form.Group>
 

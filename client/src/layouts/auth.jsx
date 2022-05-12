@@ -9,14 +9,12 @@ export default function AuthLayout() {
         <Navbar bg="light" expand="lg">
           <Container>
             <Navbar.Brand>
-              <Nav.Link as={NavLink} to="/">
-                Кнут и Пряник
-              </Nav.Link>
+              <Nav>Кнут и Пряник</Nav>
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="me-auto">
-                <Nav.Link as={NavLink} to="/authorization">
+                <Nav.Link as={NavLink} to="/">
                   Авторизация
                 </Nav.Link>
                 <Nav.Link as={NavLink} to="/registration">

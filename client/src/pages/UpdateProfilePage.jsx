@@ -18,7 +18,7 @@ export default function UpdateProfilePage() {
       setDescription('');
       setMessage('Профиль успешно обновлен!');
       setShow('success');
-      setTimeout(() => navigate('/profile'), 1000);
+      setTimeout(() => navigate('/'), 1000);
     } else {
       setMessage(response.message);
       setShow('danger');
