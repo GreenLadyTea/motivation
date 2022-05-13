@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Stack } from 'react-bootstrap';
 import { getAllUsers } from '../store/actions/usersActions';
-import UserCard from './UserCard';
+import UserCard from './UserCard/UserCard';
 
 export default function UsersList() {
   const [searchText, setSearchText] = useState('');
@@ -15,7 +15,7 @@ export default function UsersList() {
 
   return (
     <>
-      <div className="mb-3 col-md-6">
+      <div className="mb-3 col-lg-8">
         <Form.Control
           type="text"
           placeholder="Найти человека"
@@ -24,7 +24,7 @@ export default function UsersList() {
           required
         />
       </div>
-      <Stack gap={3} className="col-md-6">
+      <Stack gap={3} className="col-lg-8">
         {users
           .filter(user => user.username.indexOf(searchText) !== -1)
           .map(user => (
