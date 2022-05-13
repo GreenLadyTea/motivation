@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { Button, Tab, Tabs } from 'react-bootstrap';
-import ProfileGoalsList from '../components/ProfileGoalsList';
-import avatarLogo from '../images/default_avatar.jpg';
+import ProfileGoalsList from '../../components/ProfileGoalsList';
+import avatarLogo from '../../images/default_avatar.jpg';
 import './profile.css';
-import { getUser } from '../store/actions/profileActions';
-import ProfileTrackedGoalsList from '../components/ProfileTrackedGoalsList';
+import { getUser } from '../../store/actions/profileActions';
+import ProfileTrackedGoalsList from '../../components/ProfileTrackedGoalsList';
 
 export default function ProfilePage() {
   const username = useSelector(state => state.profile.username);
@@ -25,9 +25,9 @@ export default function ProfilePage() {
     <div className="container-fluid">
       <div className="profile-info align-items-md-start">
         <img alt="avatar" src={avatar} className="avatar" />
-        <div className="user-info">
+        <div className="user-info col-lg-8">
           <h1>{username}</h1>
-          <div className="col-md-8">
+          <div>
             {[...description].map(function (elem, index) {
               if (elem === '\n') {
                 return <br key={index} />;
@@ -40,7 +40,7 @@ export default function ProfilePage() {
           </Button>
         </div>
       </div>
-      <h2>
+      <h2 className="mt-4">
         Мои цели{' '}
         <Button variant="outline-success" size="sm" as={NavLink} to="/goals/new">
           Поставить новую цель

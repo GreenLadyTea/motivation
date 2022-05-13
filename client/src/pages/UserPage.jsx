@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import avatarLogo from '../images/default_avatar.jpg';
-import './profile.css';
+import './Profile/profile.css';
 import { useParams } from 'react-router-dom';
 import { getDescription } from '../store/actions/otherProfileActions';
 import { useDispatch, useSelector } from 'react-redux';

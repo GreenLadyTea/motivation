@@ -13,16 +13,14 @@ export default function UserCard({ username }) {
     <>
       <Card>
         <Card.Body>
-          <Card.Text>
-            <Stack direction="horizontal" gap={2}>
-              <img alt="avatar" src={avatar} className="avatar_small" />
-              {username === nick ? (
-                <Link to={`/profile`}>{username}</Link>
-              ) : (
-                <Link to={`/people/${username}`}>{username}</Link>
-              )}
-            </Stack>
-          </Card.Text>
+          <Stack direction="horizontal" gap={2}>
+            <img alt="avatar" src={avatar} className="avatar_small" />
+            {username === nick ? (
+              <Link to={`/profile`}>{username}</Link>
+            ) : (
+              <Link to={`/people/${username}`}>{username}</Link>
+            )}
+          </Stack>
         </Card.Body>
       </Card>
     </>

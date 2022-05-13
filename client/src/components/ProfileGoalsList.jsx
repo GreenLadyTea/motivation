@@ -10,7 +10,7 @@ export default function ProfileGoalsList() {
 
   useEffect(() => {
     dispatch(getGoals());
-  }, [goals]);
+  }, []);
 
   function renderList() {
     if (!goals.length) {

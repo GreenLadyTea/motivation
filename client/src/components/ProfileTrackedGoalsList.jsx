@@ -10,7 +10,7 @@ export default function ProfileTrackedGoalsList({ username }) {
 
   useEffect(() => {
     dispatch(getTrackedGoals(username));
-  }, [goals]);
+  }, []);
 
   function renderList() {
     if (!goals.length) {

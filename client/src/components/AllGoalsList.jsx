@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { getAllGoals, REQUEST_STATUS } from '../store/actions/goalsActions';
 import { Stack } from 'react-bootstrap';
 import GoalCard from './GoalCard';
-import Loader from './Loader';
+import Loader from './Misc/Loader';
 
 export default function AllGoalsList() {
   const goals = useSelector(state => state.goals.goals);
