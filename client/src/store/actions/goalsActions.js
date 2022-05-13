@@ -53,6 +53,23 @@ export const create = async (title, description, term) => {
   }
 };
 
+export const update = async (id, title, description, term) => {
+  try {
+    return await axios.put(
+      `${URL}/${id}`,
+      { title, description, term },
+      {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+      }
+    );
+  } catch (e) {
+    return {
+      status: e.response.status,
+      message: e.response.data.message
+    };
+  }
+};
+
 export const getAllGoals = id => async dispatch => {
   try {
     dispatch(setRequestStatus(REQUEST_STATUS.LOADING));

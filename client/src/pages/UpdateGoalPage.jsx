@@ -1,17 +1,37 @@
 import React, { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Alert, Button, Form } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { update } from '../store/actions/goalsActions';
 
 export default function UpdateGoalPage() {
   const { id } = useParams();
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [term, setTerm] = useState('');
+  const goals = useSelector(state => state.profile.goals);
+  const goal = goals.find(goal => goal._id === id);
+
+  const [title, setTitle] = useState(goal.title);
+  const [description, setDescription] = useState(goal.description);
+  const [term, setTerm] = useState(goal.term.slice(0, 16));
+
   const [show, setShow] = useState('');
+  const [message, setMessage] = useState('');
+
+  const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
-    setShow('success');
+    const response = await update(id, title, description, term);
+    if (response.status === 200) {
+      setTitle('');
+      setDescription('');
+      setTerm('');
+      setMessage('Вперёд к своей цели!');
+      setShow('success');
+      setTimeout(() => navigate('/profile'), 1000);
+    } else {
+      setMessage(response.message);
+      setShow('danger');
+    }
   }
 
   return (
@@ -21,14 +41,14 @@ export default function UpdateGoalPage() {
       {show === 'danger' && (
         <Alert variant={show}>
           <Alert.Heading>Ошибка!</Alert.Heading>
-          <p>{id}</p>
+          <p>{message}</p>
         </Alert>
       )}
 
       {show === 'success' && (
         <Alert variant={show}>
           <Alert.Heading>Успех</Alert.Heading>
-          <p>2</p>
+          <p>{message}</p>
         </Alert>
       )}
 
@@ -62,7 +82,6 @@ export default function UpdateGoalPage() {
             onChange={e => setDescription(e.target.value)}
           />
         </Form.Group>
-
         <Button variant="primary" type="submit">
           Поставить новую цель
         </Button>

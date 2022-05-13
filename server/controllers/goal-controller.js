@@ -22,12 +22,32 @@ class GoalController {
     }
   }
 
+  async updateGoal(req, res) {
+    try {
+      const { title, description, term } = req.body;
+      const goal = await GoalModel.findOneAndUpdate({ _id: req.params.id, user: req.user.userId }, { title: title, description: description, term: term}, {
+        new: true
+      });
+      return res.status(200).json(goal);
+    } catch (e) {
+      return res.status(500).json({ message: 'Что-то пошло не так' });
+    }
+  }
+
+  async deleteGoal(req, res) {
+    try {
+
+    } catch (e) {
+      return res.status(500).json({ message: 'Что-то пошло не так' });
+    }
+  }
+
   async doTheTask(req, res) {
     try {
       const goal = await GoalModel.findOneAndUpdate({ _id: req.params.id, user: req.user.userId }, { status: GOAL_STATUS.WAITING}, {
         new: true
       });
-      return res.status(200).json({ goal });
+      return res.status(200).json(goal);
     } catch(e) {
       return res.status(500).json({ message: 'Что-то пошло не так' });
     }
@@ -39,7 +59,7 @@ class GoalController {
       const goals_array = [];
       for (let i = 0; i < goals.length; i++) {
         const user = await UserModel.findById(goals[i].user);
-        goals_array[i] = {
+        goals_array.push({
           _id: goals[i]._id,
           userId: goals[i].user,
           username: user.username,
@@ -48,7 +68,7 @@ class GoalController {
           description: goals[i].description,
           term: goals[i].term,
           createdAt: goals[i].createdAt
-        }
+        });
       }
       return res.status(200).json(goals_array);
     } catch(e) {
@@ -119,7 +139,7 @@ class GoalController {
       const goal = await GoalModel.findById(req.params.id);
       const user = await UserModel.findById(goal.user);
       const result = {
-        id: goal._id,
+        _id: goal._id,
         title: goal.title,
         username: user.username,
         description: goal.description,

@@ -7,8 +7,14 @@ const goalsRouter = Router();
 //создание цели
 goalsRouter.post('/', auth, goalController.create);
 
+//обновление цели
+goalsRouter.put('/:id', auth, goalController.updateGoal);
+
+//удаление цели
+goalsRouter.delete('/:id', auth, goalController.deleteGoal);
+
 //выполнение цели
-goalsRouter.put('/:id', auth, goalController.doTheTask);
+goalsRouter.put('/execute/:id', auth, goalController.doTheTask);
 
 //подписка на цель
 goalsRouter.put('/track/:id', auth, goalController.trackGoal);

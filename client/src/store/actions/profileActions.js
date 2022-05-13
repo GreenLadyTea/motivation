@@ -115,7 +115,7 @@ export const getTrackedGoals = username => async dispatch => {
 export const doGoal = id => async dispatch => {
   try {
     const response = await axios.put(
-      `${goalsURL}/${id}`,
+      `${goalsURL}/execute/${id}`,
       {},
       {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }

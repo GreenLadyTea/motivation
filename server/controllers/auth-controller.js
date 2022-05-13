@@ -47,7 +47,6 @@ class AuthController {
                 token,
                 user: {
                     id: user._id,
-                    login: user.login,
                     username: user.username
                 }
             });
@@ -66,7 +65,6 @@ class AuthController {
             return res.status(200).json({
                 token,
                 user: {
-                    login: user.login,
                     username: user.username
                 }
             });
