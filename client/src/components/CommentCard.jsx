@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { setDate } from '../handlers/DateHandler';
 
 export default function CommentCard({ username, text, createdAt }) {
   return (
@@ -13,7 +14,7 @@ export default function CommentCard({ username, text, createdAt }) {
           <Card.Text>
             {text}
             <br />
-            {createdAt}
+            {setDate(createdAt)}
           </Card.Text>
         </Card.Body>
       </Card>

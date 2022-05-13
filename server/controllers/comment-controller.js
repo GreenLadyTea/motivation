@@ -13,7 +13,7 @@ class commentController {
       const username = user.username;
       const title = goalUpdate.title;
       const commentText = comment.text;
-      const createdAt = comment.createdAt.toLocaleString().slice(0,17);
+      const createdAt = comment.createdAt;
       return res.status(201).json({ username, title, commentText, createdAt });
     } catch (e) {
       return res.status(500).json({ message: 'Что-то пошло не так' });
@@ -29,7 +29,7 @@ class commentController {
           id: comments[i]._id,
           username: user.username,
           text: comments[i].text,
-          createdAt: comments[i].createdAt.toLocaleString().slice(0,17)
+          createdAt: comments[i].createdAt
         }
       }
       return res.status(200).json(comm_array);

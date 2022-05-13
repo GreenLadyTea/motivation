@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getGoal, postComment } from '../store/actions/goalPageActions';
 import { Container, Row, Col, Card, Form, Button, Stack } from 'react-bootstrap';
 import CommentsList from '../components/CommentsList';
+import { setDate } from '../handlers/DateHandler';
 
 export default function GoalPage() {
   const goal = useSelector(state => state.goalPage.goal);
@@ -31,8 +32,8 @@ export default function GoalPage() {
           Автор: <Link to={`/people/${goal.username}`}>{goal.username}</Link>
         </div>
         <Row className="col-md-8">
-          <Col md={4}>{goal.term}</Col>
-          <Col md={{ span: 4, offset: 4 }}>{goal.createdAt}</Col>
+          <Col md={4}>{setDate(goal.term)}</Col>
+          <Col md={{ span: 4, offset: 4 }}>{setDate(goal.createdAt)}</Col>
         </Row>
         <Card>
           <Card.Body>

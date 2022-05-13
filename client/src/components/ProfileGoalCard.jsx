@@ -3,6 +3,7 @@ import { Card, Button, Stack } from 'react-bootstrap';
 import { doGoal } from '../store/actions/profileActions';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { setDate } from '../handlers/DateHandler';
 
 export default function ProfileGoalCard({ id, title, term, description, createdAt, status }) {
   const dispatch = useDispatch();
@@ -11,8 +12,6 @@ export default function ProfileGoalCard({ id, title, term, description, createdA
     const response = await dispatch(doGoal(id));
     console.log(response.status);
   }
-
-  const fixedTerm = createdAt.slice(0, 10);
 
   return (
     <>
@@ -54,8 +53,8 @@ export default function ProfileGoalCard({ id, title, term, description, createdA
           </Card.Title>
           <Card.Subtitle className="mb-2">
             <Stack gap={2} direction="horizontal">
-              <div className="text-muted">{fixedTerm}</div>
-              <div className="text-danger ms-auto">до {term.toLocaleString()}</div>
+              <div className="text-muted">{setDate(createdAt)}</div>
+              <div className="text-danger ms-auto">до {setDate(term)}</div>
             </Stack>
           </Card.Subtitle>
           <Card.Text>

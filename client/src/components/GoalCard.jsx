@@ -2,10 +2,9 @@ import React from 'react';
 import { Card, Button, Stack } from 'react-bootstrap';
 import { trackGoal } from '../store/actions/goalsActions';
 import { Link } from 'react-router-dom';
+import { setDate } from '../handlers/DateHandler';
 
 export default function GoalCard({ id, title, username, term, description, createdAt }) {
-  const fixedTerm = createdAt.slice(0, 10);
-
   async function handleClick() {
     const response = await trackGoal(id);
     console.log(response.status);
@@ -20,8 +19,8 @@ export default function GoalCard({ id, title, username, term, description, creat
           </Card.Title>
           <Card.Subtitle className="mb-2">
             <Stack gap={2} direction="horizontal">
-              <div className="text-muted">{fixedTerm}</div>
-              <div className="text-danger ms-auto">до {term}</div>
+              <div className="text-muted">{setDate(createdAt)}</div>
+              <div className="text-danger ms-auto">до {setDate(term)}</div>
             </Stack>
           </Card.Subtitle>
           <Card.Text>
