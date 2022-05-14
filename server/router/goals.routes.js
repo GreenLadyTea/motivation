@@ -22,8 +22,11 @@ goalsRouter.put('/track/:id', auth, goalController.trackGoal);
 //получение всех целей
 goalsRouter.get('/all', auth, goalController.getAll);
 
-//получение целей текущего пользователя
-goalsRouter.get('/', auth, goalController.getAllOfAuthorizedUser);
+//получение невыполненных целей текущего пользователя
+goalsRouter.get('/', auth, goalController.getAllNewOfAuthorizedUser);
+
+//получение выполненных целей текущего пользователя
+goalsRouter.get('/success', auth, goalController.getAllSucceedOfAuthorizedUser);
 
 //получение целей пользователя по username
 goalsRouter.get('/:username', auth, goalController.getAllByUsername);

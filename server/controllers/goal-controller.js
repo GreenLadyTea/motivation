@@ -76,9 +76,30 @@ class GoalController {
     }
   }
 
-  async getAllOfAuthorizedUser(req, res) {
+  async getAllNewOfAuthorizedUser(req, res) {
     try {
-      const goals = await GoalModel.find({ user: req.user.userId }).select('-__v -subscribers');
+      const goals = await GoalModel.find({ user: req.user.userId, status: GOAL_STATUS.NEW }).select('-__v -subscribers');
+      let goals_array = [];
+      for (let i = 0; i < goals.length; i++) {
+        goals_array[i] = {
+          _id: goals[i]._id,
+          userId: goals[i].user,
+          title: goals[i].title,
+          description: goals[i].description,
+          status: goals[i].status,
+          term: goals[i].term,
+          createdAt: goals[i].createdAt
+        }
+      }
+      return res.status(200).json(goals_array);
+    } catch (e) {
+      return res.status(500).json({ message: 'Что-то пошло не так' });
+    }
+  }
+
+  async getAllSucceedOfAuthorizedUser(req, res) {
+    try {
+      const goals = await GoalModel.find({ user: req.user.userId, status: GOAL_STATUS.SUCCESS }).select('-__v -subscribers -updatedAt');
       let goals_array = [];
       for (let i = 0; i < goals.length; i++) {
         goals_array[i] = {

@@ -10,12 +10,18 @@ export const PROFILE_ACTIONS = {
   SET_GOALS: 'setGoals',
   SET_TRACKED_GOALS: 'setTrackedGoals',
   FILTER: 'filter',
-  EXECUTE: 'execute'
+  EXECUTE: 'execute',
+  SET_REQUEST_STATUS: 'setRequestStatus'
 };
 
 export const setUsername = username => ({
   type: PROFILE_ACTIONS.SET_USERNAME,
   payload: username
+});
+
+export const setRequestStatus = status => ({
+  type: PROFILE_ACTIONS.SET_REQUEST_STATUS,
+  payload: status
 });
 
 export const setDescription = description => ({

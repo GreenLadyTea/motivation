@@ -4,8 +4,10 @@ export const initialState = {
   username: '',
   description: 'Нет описания',
   goals: [],
+  failedGoals: [],
   trackedGoals: [],
-  filter: ''
+  filter: '',
+  requestStatus: ''
 };
 
 export function profileReducer(state = initialState, action) {
@@ -32,6 +34,9 @@ export function profileReducer(state = initialState, action) {
     }
     case PROFILE_ACTIONS.FILTER: {
       return { ...state, filter: action.payload };
+    }
+    case PROFILE_ACTIONS.SET_REQUEST_STATUS: {
+      return { ...state, requestStatus: action.payload };
     }
     default: {
       return state;
