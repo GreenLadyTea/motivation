@@ -155,7 +155,17 @@ class GoalController {
       const goals_array = [];
       for (let i = 0; i < user.trackedGoals.length; i++) {
         const goal = await GoalModel.findById(user.trackedGoals[i]).select('-__v -subscribers -updatedAt');
-        goals_array.push(goal);
+        const sub = await UserModel.findById(goal.user);
+        const res = {
+          _id: goal._id,
+          username: sub.username,
+          title: goal.title,
+          term: goal.term,
+          description: goal.description,
+          createdAt: goal.createdAt,
+          status: goal.status
+        };
+        goals_array.push(res);
       }
       const result = goals_array.sort(function (a, b) {
         if (a.term > b.term) {
