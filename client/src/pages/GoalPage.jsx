@@ -5,6 +5,7 @@ import { getGoal, postComment } from '../store/actions/goalPageActions';
 import { Container, Row, Col, Card, Form, Button, Stack } from 'react-bootstrap';
 import CommentsList from '../components/CommentsList';
 import { setDate } from '../handlers/DateHandler';
+import SubscribersList from '../components/SubscribersList';
 
 export default function GoalPage() {
   const goal = useSelector(state => state.goalPage.goal);
@@ -60,6 +61,10 @@ export default function GoalPage() {
             <Card.Text>{goal.description}</Card.Text>
           </Card.Body>
         </Card>
+        <div className="mb-5 mt-4">
+          <h3>Подписчики цели</h3>
+          <SubscribersList id={id} />
+        </div>
         <Form className="col-md-8" onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
             <Form.Label>

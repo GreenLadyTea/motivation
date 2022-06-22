@@ -1,4 +1,5 @@
 const UserModel = require('../models/User');
+const GoalModel = require('../models/Goal');
 
 class userController {
   async getAll(req, res) {
@@ -49,6 +50,23 @@ class userController {
     try {
       const user = await UserModel.findOne({username: req.params.username}).select('-__v -login -comments -password');
       return res.status(200).json(user);
+    } catch (e) {
+      return res.status(500).json({ message: 'Что-то пошло не так' });
+    }
+  }
+  async getAllSubscribersByGoal(req, res) {
+    try {
+      const goal = await GoalModel.findById(req.params.id).select('-updatedAt -__v');
+      const subscribers_array = [];
+      for (let i = 0; i < goal.subscribers.length; i++) {
+        const user = await UserModel.findById(goal.subscribers[i]);
+        subscribers_array.push({
+          _id: user._id,
+          username: user.username,
+          avatar: user.avatar
+        });
+      }
+      return res.status(200).json(subscribers_array);
     } catch (e) {
       return res.status(500).json({ message: 'Что-то пошло не так' });
     }

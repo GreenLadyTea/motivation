@@ -6,7 +6,7 @@ import { update } from '../store/actions/goalsActions';
 
 export default function UpdateGoalPage() {
   const { id } = useParams();
-  const goals = useSelector(state => state.profile.goals);
+  const goals = useSelector(state => state.profile.newGoals);
   const goal = goals.find(goal => goal._id === id);
 
   const [title, setTitle] = useState(goal.title);

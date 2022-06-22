@@ -19,4 +19,7 @@ usersRouter.post('/username', auth, userController.updateUserName);
 //получение пользователя по username
 usersRouter.get('/:username', auth, userController.getUserByUsername);
 
+//получение всех подписчиков по id цели
+usersRouter.get('/subscribers/:id', auth, userController.getAllSubscribersByGoal);
+
 module.exports = usersRouter;
