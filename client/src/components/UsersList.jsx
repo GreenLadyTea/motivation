@@ -28,7 +28,7 @@ export default function UsersList() {
         {users
           .filter(user => user.username.indexOf(searchText) !== -1)
           .map(user => (
-            <UserCard key={user._id} username={user.username} />
+            <UserCard key={user._id} username={user.username} avatar={user.avatar} />
           ))}
       </Stack>
     </>

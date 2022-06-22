@@ -12,10 +12,23 @@
     }
 }
 
+.avatar-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.nickname {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 .user-info {
     margin-left: 2vmin;
 }
 
 .avatar {
     border-radius: 10vmin;
+    max-height: 300px;
+    max-width: 300px;
 }

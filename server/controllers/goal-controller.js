@@ -1,12 +1,6 @@
 const GoalModel = require('../models/Goal');
 const UserModel = require('../models/User');
-
-const GOAL_STATUS = {
-  NEW: 'new',
-  WAITING: 'waiting',
-  SUCCESS: 'success',
-  FAILED: 'failed'
-}
+const GOAL_STATUS = require('../variables/goalStatus');
 
 class GoalController {
   async create(req, res) {
@@ -36,7 +30,8 @@ class GoalController {
 
   async deleteGoal(req, res) {
     try {
-
+      const goal = await GoalModel.findByIdAndDelete(req.params.id);
+      return res.status(200).json(goal.title);
     } catch (e) {
       return res.status(500).json({ message: 'Что-то пошло не так' });
     }
@@ -44,7 +39,7 @@ class GoalController {
 
   async doTheTask(req, res) {
     try {
-      const goal = await GoalModel.findOneAndUpdate({ _id: req.params.id, user: req.user.userId }, { status: GOAL_STATUS.WAITING}, {
+      const goal = await GoalModel.findOneAndUpdate({ _id: req.params.id, user: req.user.userId }, { status: GOAL_STATUS.DONE}, {
         new: true
       });
       return res.status(200).json(goal);
@@ -53,9 +48,20 @@ class GoalController {
     }
   }
 
-  async getAll(req, res) {
+  async approveGoal(req, res) {
     try {
-      const goals = await GoalModel.find({ status: GOAL_STATUS.NEW }).select('-__v -subscribers -updatedAt');
+      const goal = await GoalModel.findOneAndUpdate({ _id: req.params.id }, { status: GOAL_STATUS.APPROVED}, {
+        new: true
+      });
+      return res.status(200).json(goal);
+    } catch(e) {
+      return res.status(500).json({ message: 'Что-то пошло не так' });
+    }
+  }
+
+  async getAllByCreation(req, res) {
+    try {
+      const goals = await GoalModel.find({ status: GOAL_STATUS.NEW }).select('-__v -subscribers -updatedAt').sort({'createdAt': -1});
       const goals_array = [];
       for (let i = 0; i < goals.length; i++) {
         const user = await UserModel.findById(goals[i].user);
@@ -76,30 +82,32 @@ class GoalController {
     }
   }
 
-  async getAllNewOfAuthorizedUser(req, res) {
+  async getAllByTerm(req, res) {
     try {
-      const goals = await GoalModel.find({ user: req.user.userId, status: GOAL_STATUS.NEW }).select('-__v -subscribers');
-      let goals_array = [];
+      const goals = await GoalModel.find({ status: GOAL_STATUS.NEW }).select('-__v -subscribers -updatedAt').sort({'term': 1});
+      const goals_array = [];
       for (let i = 0; i < goals.length; i++) {
-        goals_array[i] = {
+        const user = await UserModel.findById(goals[i].user);
+        goals_array.push({
           _id: goals[i]._id,
           userId: goals[i].user,
+          username: user.username,
           title: goals[i].title,
-          description: goals[i].description,
           status: goals[i].status,
+          description: goals[i].description,
           term: goals[i].term,
           createdAt: goals[i].createdAt
-        }
+        });
       }
       return res.status(200).json(goals_array);
-    } catch (e) {
+    } catch(e) {
       return res.status(500).json({ message: 'Что-то пошло не так' });
     }
   }
 
-  async getAllSucceedOfAuthorizedUser(req, res) {
+  async getAllOfAuthorizedUser(req, res) {
     try {
-      const goals = await GoalModel.find({ user: req.user.userId, status: GOAL_STATUS.SUCCESS }).select('-__v -subscribers -updatedAt');
+      const goals = await GoalModel.find({ user: req.user.userId, status: req.params.status }).select('-__v -subscribers').sort({'term': 1});
       let goals_array = [];
       for (let i = 0; i < goals.length; i++) {
         goals_array[i] = {
@@ -121,7 +129,7 @@ class GoalController {
   async getAllByUsername(req, res) {
     try {
       const user = await UserModel.findOne({ username: req.params.username });
-      const goals = await GoalModel.find({ user: user._id }).select('-__v -subscribers -updatedAt');
+      const goals = await GoalModel.find({ user: user._id, status: req.query.status }).select('-__v -subscribers -updatedAt');
       return res.status(200).json(goals);
     } catch (e) {
       return res.status(500).json({ message: 'Что-то пошло не так' });
@@ -149,7 +157,16 @@ class GoalController {
         const goal = await GoalModel.findById(user.trackedGoals[i]).select('-__v -subscribers -updatedAt');
         goals_array.push(goal);
       }
-      return res.status(200).json(goals_array);
+      const result = goals_array.sort(function (a, b) {
+        if (a.term > b.term) {
+          return 1;
+        }
+        if (a.term < b.term) {
+          return -1;
+        }
+        return 0;
+      });
+      return res.status(200).json(result);
     } catch(e) {
       return res.status(500).json({ message: 'Что-то пошло не так' });
     }

@@ -24,6 +24,21 @@ export default function GoalPage() {
     }
   }
 
+  function getStatus(stat) {
+    if (stat === 'new') {
+      return <div className="text-muted">Ещё не выполнена</div>;
+    }
+    if (stat === 'done') {
+      return <div className="text-success">Выполнена, ожидает подтверждения</div>;
+    }
+    if (stat === 'approved') {
+      return <div>Подтверждено выполнение</div>;
+    }
+    if (stat === 'failed') {
+      return <div className="text-danger">Провалена!</div>;
+    }
+  }
+
   return (
     <Container>
       <Stack gap={3} className="col-md-8">
@@ -31,11 +46,16 @@ export default function GoalPage() {
         <div>
           Автор: <Link to={`/people/${goal.username}`}>{goal.username}</Link>
         </div>
+        <div>{getStatus(goal.status)}</div>
         <Row className="col-md-8">
-          <Col md={4}>{setDate(goal.term)}</Col>
-          <Col md={{ span: 4, offset: 4 }}>{setDate(goal.createdAt)}</Col>
+          <Col className="text-muted" md={4}>
+            {setDate(goal.createdAt)}
+          </Col>
+          <Col className="text-danger" md={{ span: 4, offset: 4 }}>
+            до {setDate(goal.term)}
+          </Col>
         </Row>
-        <Card>
+        <Card className="col-md-8">
           <Card.Body>
             <Card.Text>{goal.description}</Card.Text>
           </Card.Body>
@@ -49,7 +69,7 @@ export default function GoalPage() {
               as="textarea"
               rows={3}
               value={comment}
-              placeholder="Мотивируйте автора или поделитесь полезной информацией!"
+              placeholder="Оставьте свой комментарий!"
               onChange={e => setComment(e.target.value)}
             />
           </Form.Group>

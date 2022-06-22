@@ -1,13 +1,14 @@
-import { PROFILE_ACTIONS } from '../actions/profileActions';
+import { GOAL_STATUS, PROFILE_ACTIONS } from '../actions/profileActions';
 
 export const initialState = {
   username: '',
+  avatar: '',
   description: 'Нет описания',
-  goals: [],
+  newGoals: [],
+  doneGoals: [],
+  approvedGoals: [],
   failedGoals: [],
-  trackedGoals: [],
-  filter: '',
-  requestStatus: ''
+  trackedGoals: []
 };
 
 export function profileReducer(state = initialState, action) {
@@ -15,28 +16,46 @@ export function profileReducer(state = initialState, action) {
     case PROFILE_ACTIONS.SET_USERNAME: {
       return { ...state, username: action.payload };
     }
+    case PROFILE_ACTIONS.SET_AVATAR: {
+      return { ...state, avatar: action.payload };
+    }
     case PROFILE_ACTIONS.SET_DESCRIPTION: {
       return { ...state, description: action.payload };
     }
-    case PROFILE_ACTIONS.SET_GOALS: {
-      return { ...state, goals: [...action.payload] };
+    case PROFILE_ACTIONS.SET_NEW_GOALS: {
+      return { ...state, newGoals: [...action.payload] };
+    }
+    case PROFILE_ACTIONS.SET_DONE_GOALS: {
+      return { ...state, doneGoals: [...action.payload] };
+    }
+    case PROFILE_ACTIONS.SET_APPROVED_GOALS: {
+      return { ...state, approvedGoals: [...action.payload] };
+    }
+    case PROFILE_ACTIONS.SET_FAILED_GOALS: {
+      return { ...state, failedGoals: [...action.payload] };
     }
     case PROFILE_ACTIONS.SET_TRACKED_GOALS: {
       return { ...state, trackedGoals: [...action.payload] };
     }
     case PROFILE_ACTIONS.EXECUTE: {
-      for (let i = 0; i < state.goals.length; i++) {
-        if (state.goals[i]._id === action.payload) {
-          state.goals[i].status = 'done';
+      let doneGoal = {};
+      for (let i = 0; i < state.newGoals.length; i++) {
+        if (state.newGoals[i]._id === action.payload) {
+          doneGoal = state.newGoals[i];
+          doneGoal.status = GOAL_STATUS.DONE;
         }
       }
-      return { ...state, goals: [...state.goals] };
+      return {
+        ...state,
+        newGoals: [...state.newGoals.filter(goal => goal._id !== action.payload)],
+        doneGoals: [...state.doneGoals, doneGoal]
+      };
     }
-    case PROFILE_ACTIONS.FILTER: {
-      return { ...state, filter: action.payload };
-    }
-    case PROFILE_ACTIONS.SET_REQUEST_STATUS: {
-      return { ...state, requestStatus: action.payload };
+    case PROFILE_ACTIONS.DELETE: {
+      return {
+        ...state,
+        newGoals: [...state.newGoals.filter(goal => goal._id !== action.payload)]
+      };
     }
     default: {
       return state;

@@ -1,31 +1,30 @@
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect } from 'react';
 import { Stack } from 'react-bootstrap';
-import { getTrackedGoals } from '../store/actions/profileActions';
-import TrackedGoalCard from './TrackedGoalCard';
+import GoalCard from './GoalCard';
+import { getUserFailedGoals } from '../store/actions/otherProfileActions';
 
-export default function ProfileTrackedGoalsList({ username }) {
-  const goals = useSelector(state => state.profile.trackedGoals);
+export default function UserFailedGoalsList({ username }) {
+  const goals = useSelector(state => state.otherProfile.failedGoals);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getTrackedGoals(username));
+    dispatch(getUserFailedGoals(username));
   }, []);
 
   function renderList() {
     if (!goals.length) {
-      return 'Отслеживаемых целей ещё нет';
+      return `Пользователь ${username} ещё не провалил ни одной цели!`;
     }
     return (
       <>
-        <Stack gap={3} className="col-md-8">
+        <Stack gap={3} className="col-md-6">
           {goals.map(goal => (
-            <TrackedGoalCard
+            <GoalCard
               key={goal._id}
               id={goal._id}
-              status={goal.status}
               title={goal.title}
-              username={goal.username}
+              username={false}
               description={goal.description}
               createdAt={goal.createdAt}
               term={goal.term}

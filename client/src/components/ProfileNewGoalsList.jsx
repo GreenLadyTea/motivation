@@ -1,34 +1,33 @@
-import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getNewGoals } from '../store/actions/profileActions';
+import ProfileGoalCard from './ProfileGoalCard';
 import { Stack } from 'react-bootstrap';
-import { getTrackedGoals } from '../store/actions/profileActions';
-import TrackedGoalCard from './TrackedGoalCard';
 
-export default function ProfileTrackedGoalsList({ username }) {
-  const goals = useSelector(state => state.profile.trackedGoals);
+export default function ProfileNewGoalsList() {
+  const goals = useSelector(state => state.profile.newGoals);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getTrackedGoals(username));
+    dispatch(getNewGoals());
   }, []);
 
   function renderList() {
     if (!goals.length) {
-      return 'Отслеживаемых целей ещё нет';
+      return 'Никаких целей ещё нет';
     }
     return (
       <>
         <Stack gap={3} className="col-md-8">
           {goals.map(goal => (
-            <TrackedGoalCard
+            <ProfileGoalCard
               key={goal._id}
               id={goal._id}
-              status={goal.status}
               title={goal.title}
-              username={goal.username}
               description={goal.description}
               createdAt={goal.createdAt}
               term={goal.term}
+              status={goal.status}
             />
           ))}
         </Stack>
@@ -37,7 +36,7 @@ export default function ProfileTrackedGoalsList({ username }) {
   }
   return (
     <>
-      <div>{renderList()}</div>
+      <div data-testid="list">{renderList()}</div>
     </>
   );
 }

@@ -18,7 +18,7 @@ export default function CommentsList({ id }) {
     }
     return (
       <>
-        <Stack gap={3} className="col-md-6">
+        <Stack gap={3} className="col-md-8">
           {comments.map(comment => (
             <CommentCard
               key={comment.id}

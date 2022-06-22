@@ -54,6 +54,7 @@ class AuthController {
             return res.status(500).json({ message: 'Что-то пошло не так' });
         }
     }
+
     async checkAuth(req, res) {
         try {
             const user = await UserModel.findOne({ _id: req.user.userId });

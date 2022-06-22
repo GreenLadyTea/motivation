@@ -2,19 +2,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect } from 'react';
 import { Stack } from 'react-bootstrap';
 import GoalCard from './GoalCard';
-import { getUserGoals } from '../store/actions/otherProfileActions';
+import { getUserNewGoals } from '../store/actions/otherProfileActions';
 
-export default function UserGoalsList({ username }) {
-  const goals = useSelector(state => state.otherProfile.goals);
+export default function UserNewGoalsList({ username }) {
+  const goals = useSelector(state => state.otherProfile.newGoals);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUserGoals(username));
+    dispatch(getUserNewGoals(username));
   }, []);
 
   function renderList() {
     if (!goals.length) {
-      return 'Никаких целей ещё нет';
+      return `Текущих целей у пользователя ${username} ещё нет`;
     }
     return (
       <>
@@ -24,6 +24,7 @@ export default function UserGoalsList({ username }) {
               key={goal._id}
               id={goal._id}
               title={goal.title}
+              status={goal.status}
               username={false}
               description={goal.description}
               createdAt={goal.createdAt}

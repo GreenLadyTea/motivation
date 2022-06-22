@@ -1,13 +1,35 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Card, Button, Stack } from 'react-bootstrap';
 import { trackGoal } from '../store/actions/goalsActions';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { setDate } from '../handlers/DateHandler';
+import { useDispatch, useSelector } from 'react-redux';
+import { getTrackedGoals } from '../store/actions/profileActions';
 
-export default function GoalCard({ id, title, username, term, description, createdAt }) {
+export default function GoalCard({ id, title, status, username, term, description, createdAt }) {
+  const trackedGoals = useSelector(state => state.profile.trackedGoals);
+  const name = useSelector(state => state.auth.user.username);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getTrackedGoals(name));
+  }, []);
+
   async function handleClick() {
     const response = await trackGoal(id);
-    console.log(response.status);
+    if (response.status === 200) {
+      navigate(`/goals/${id}`);
+    }
+  }
+
+  function isNotTracked(goals, number) {
+    for (let i = 0; i < goals.length; i++) {
+      if (goals[i]._id === number) {
+        return false;
+      }
+    }
+    return true;
   }
 
   return (
@@ -28,9 +50,11 @@ export default function GoalCard({ id, title, username, term, description, creat
             <br />
             {username ? <Link to={`/people/${username}`}>{username}</Link> : ''}
           </Card.Text>
-          <Button variant="primary" onClick={handleClick}>
-            Мотивировать
-          </Button>
+          {status === 'new' && isNotTracked(trackedGoals, id) && (
+            <Button variant="primary" onClick={handleClick}>
+              Мотивировать
+            </Button>
+          )}
         </Card.Body>
       </Card>
     </>

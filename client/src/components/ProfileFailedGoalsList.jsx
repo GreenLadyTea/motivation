@@ -1,20 +1,20 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getGoals } from '../store/actions/profileActions';
+import { getFailedGoals } from '../store/actions/profileActions';
 import ProfileGoalCard from './ProfileGoalCard';
 import { Stack } from 'react-bootstrap';
 
-export default function ProfileGoalsList() {
-  const goals = useSelector(state => state.profile.goals);
+export default function ProfileFailedGoalsList() {
+  const goals = useSelector(state => state.profile.failedGoals);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getGoals());
+    dispatch(getFailedGoals());
   }, []);
 
   function renderList() {
     if (!goals.length) {
-      return 'Никаких целей ещё нет';
+      return 'Вы ещё не провалили ни одной цели!';
     }
     return (
       <>

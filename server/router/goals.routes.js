@@ -11,7 +11,7 @@ goalsRouter.post('/', auth, goalController.create);
 goalsRouter.put('/:id', auth, goalController.updateGoal);
 
 //удаление цели
-goalsRouter.delete('/:id', auth, goalController.deleteGoal);
+goalsRouter.delete('/:id', goalController.deleteGoal);
 
 //выполнение цели
 goalsRouter.put('/execute/:id', auth, goalController.doTheTask);
@@ -19,14 +19,17 @@ goalsRouter.put('/execute/:id', auth, goalController.doTheTask);
 //подписка на цель
 goalsRouter.put('/track/:id', auth, goalController.trackGoal);
 
-//получение всех целей
-goalsRouter.get('/all', auth, goalController.getAll);
+//подтверждение цели
+goalsRouter.put('/approve/:id', auth, goalController.approveGoal);
 
-//получение невыполненных целей текущего пользователя
-goalsRouter.get('/', auth, goalController.getAllNewOfAuthorizedUser);
+//получение всех целей по дате создания
+goalsRouter.get('/allByCreation', auth, goalController.getAllByCreation);
 
-//получение выполненных целей текущего пользователя
-goalsRouter.get('/success', auth, goalController.getAllSucceedOfAuthorizedUser);
+//получение всех целей по сроку выполнения
+goalsRouter.get('/allByTerm', auth, goalController.getAllByTerm);
+
+//получение целей текущего пользователя в зависимости от статуса их выполнения
+goalsRouter.get('/current/:status', auth, goalController.getAllOfAuthorizedUser);
 
 //получение целей пользователя по username
 goalsRouter.get('/:username', auth, goalController.getAllByUsername);

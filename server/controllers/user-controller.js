@@ -3,7 +3,7 @@ const UserModel = require('../models/User');
 class userController {
   async getAll(req, res) {
     try {
-      const users = await UserModel.find().select('-__v -goals -messages -password');
+      const users = await UserModel.find().select('-__v -goals -trackedGoals -comments -password -login -description');
       res.json(users);
     } catch(e) {
       return res.status(500).json({ message: 'Что-то пошло не так' });
@@ -11,8 +11,8 @@ class userController {
   }
   async getUser(req, res) {
     try {
-      const user = await UserModel.findById(req.user.userId);
-      res.json(user);
+      const user = await UserModel.findOne({_id: req.user.userId }).select('-__v -password -login -goals -trackedGoals -comments');
+      return res.status(200).json(user);
     } catch (e) {
       return res.status(500).json({ message: 'Что-то пошло не так' });
     }
@@ -47,8 +47,8 @@ class userController {
   }
   async getUserByUsername(req, res) {
     try {
-      const user = await UserModel.findOne({username: req.params.username}).select('-__v -login -messages -password');
-      res.json(user);
+      const user = await UserModel.findOne({username: req.params.username}).select('-__v -login -comments -password');
+      return res.status(200).json(user);
     } catch (e) {
       return res.status(500).json({ message: 'Что-то пошло не так' });
     }
